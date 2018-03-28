@@ -1,5 +1,6 @@
 package sample.view;
 
+import javafx.fxml.FXML;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
@@ -13,19 +14,32 @@ import sample.Objects.Material;
 
 public class MainController {
 
-    public AnchorPane DependenceViscosity;
-    public AnchorPane DependenceTemperature;
-    public TextField temperatureField;
-    public TextField speedField;
-    public TextField stepField;
-    public TextField lenghtField;
-    public TextField widthField;
-    public TextField heightField;
-    public TextField densityField;
-    public TextField heatField;
-    public TextField meltingField;
-    public Label timerLabel;
-    public Label performanceLabel;
+    @FXML
+    private AnchorPane DependenceViscosity;
+    @FXML
+    private AnchorPane DependenceTemperature;
+    @FXML
+    private TextField temperatureField;
+    @FXML
+    private TextField speedField;
+    @FXML
+    private TextField stepField;
+    @FXML
+    private TextField lenghtField;
+    @FXML
+    private TextField widthField;
+    @FXML
+    private TextField heightField;
+    @FXML
+    private TextField densityField;
+    @FXML
+    private TextField heatField;
+    @FXML
+    private TextField meltingField;
+    @FXML
+    private Label timerLabel;
+    @FXML
+    private Label performanceLabel;
 
     private NumberAxis yAxisTemp = new NumberAxis();
     private NumberAxis xAxisTemp = new NumberAxis();
@@ -77,11 +91,9 @@ public class MainController {
 
                 LineChart<Number, Number> chart2dTemp = new LineChart<Number, Number>(xAxisTemp, yAxisTemp);
                 XYChart.Series seriesTemp = calculateTemperature(temperature, speed, step, channel, material, empCoef);
-                //XYChart.Series seriesTemp = calculateTemperature(temperature, speed, step, channel, material, empCoef);
                 chart2dTemp.getData().add(seriesTemp);
 
                 LineChart<Number, Number> chart2dConsist = new LineChart<Number, Number>(xAxisCons, yAxisCons);
-                //XYChart.Series seriesConsistencies = calculateConsistenciesTest(temperature, speed, step, width, height, lenght, density, heat, meltingTemperature);
                 XYChart.Series seriesConsistencies = calculateConsistencies(temperature, speed, step, channel, material, empCoef);
                 chart2dConsist.getData().add(seriesConsistencies);
 
