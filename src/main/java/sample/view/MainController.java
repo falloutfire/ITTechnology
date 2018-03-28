@@ -1,5 +1,6 @@
 package sample.view;
 
+import javafx.event.Event;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
@@ -11,6 +12,9 @@ import sample.Objects.Channel;
 import sample.Objects.EmpiricalCoefficients;
 import sample.Objects.Material;
 
+import java.text.NumberFormat;
+import java.util.Locale;
+
 public class MainController {
 
     public AnchorPane DependenceViscosity;
@@ -18,14 +22,14 @@ public class MainController {
     public TextField temperatureField;
     public TextField speedField;
     public TextField stepField;
-    public Label timerLabel;
-    public Label performanceLabel;
     public TextField lenghtField;
     public TextField widthField;
     public TextField heightField;
     public TextField densityField;
     public TextField heatField;
     public TextField meltingField;
+    public Label timerLabel;
+    public Label performanceLabel;
 
     private NumberAxis yAxisTemp = new NumberAxis();
     private NumberAxis xAxisTemp = new NumberAxis();
@@ -36,56 +40,77 @@ public class MainController {
     }
 
     public void initialize() {
-
+        /*temperatureField.setOnKeyTyped(Event::consume);
+        speedField.setOnKeyTyped(Event::consume);
+        stepField.setOnKeyTyped(Event::consume);
+        lenghtField.setOnKeyTyped(Event::consume);
+        widthField.setOnKeyTyped(Event::consume);
+        heightField.setOnKeyTyped(Event::consume);
+        densityField.setOnKeyTyped(Event::consume);
+        heatField.setOnKeyTyped(Event::consume);
+        meltingField.setOnKeyTyped(Event::consume);*/
     }
 
 
     public void onClickCalculate() {
 
-        Channel channel = new Channel(0.2, 0.005, 7);
-        Material material = new Material(920, 2300, 120);
+
         EmpiricalCoefficients empCoef = new EmpiricalCoefficients(50000, 0.03, 120,
                 0.35, 250);
 
         double temperature = 0;
         double speed = 0;
         double step = 0;
+        double width, height, lenght = 0;
+        double density, heat, meltingTemperature = 0;
 
         try {
-            temperature = Double.parseDouble(temperatureField.getText());
-            speed = Double.parseDouble(speedField.getText());
-            step = Double.parseDouble(stepField.getText());
+            temperature = Double.parseDouble(temperatureField.getText().replace(',','.'));
+            speed = Double.parseDouble(speedField.getText().replace(',','.'));
+            step = Double.parseDouble(stepField.getText().replace(',','.'));
 
+            width = Double.parseDouble(widthField.getText().replace(',','.'));
+            height = Double.parseDouble(heightField.getText().replace(',','.'));
+            lenght = Double.parseDouble(lenghtField.getText().replace(',','.'));
+
+            density = Double.parseDouble(densityField.getText().replace(',','.'));
+            heat = Double.parseDouble(heightField.getText().replace(',','.'));
+            meltingTemperature = Double.parseDouble(meltingField.getText().replace(',','.'));
+
+            Channel channel = new Channel(width, height, lenght);
+            Material material = new Material(density, heat, meltingTemperature);
+
+            if (step > 0 || speed > 0 || temperature > -273) {
+                long startTime = System.currentTimeMillis();
+
+                LineChart<Number, Number> chart2dTemp = new LineChart<Number, Number>(xAxisTemp, yAxisTemp);
+                XYChart.Series seriesTemp = calculateTemperature(temperature, speed, step);
+                chart2dTemp.getData().add(seriesTemp);
+
+                LineChart<Number, Number> chart2dConsist = new LineChart<Number, Number>(xAxisCons, yAxisCons);
+                XYChart.Series seriesConsistencies = calculateConsistencies(temperature, speed, step);
+                chart2dConsist.getData().add(seriesConsistencies);
+
+                DependenceViscosity.getChildren().add(chart2dConsist);
+                DependenceTemperature.getChildren().add(chart2dTemp);
+
+                long timeSpent = System.currentTimeMillis() - startTime;
+
+                timerLabel.setText("Время подсчета: " + String.valueOf(timeSpent) + " мс");
+                performanceLabel.setText("Производительность: " + String.valueOf(performanceCalc(channel.getHeight(), channel.getWidth(), speed, material.getDensity())) + " Кг/Ч");
+
+            } else {
+                getAlert();
+            }
         } catch (NumberFormatException e) {
             getAlert();
         }
-
-        if (step <= 0 || speed <= 0 || temperature <= -273) {
-            throw new NumberFormatException();
-        }
-
-        long startTime = System.currentTimeMillis();
-
-        LineChart<Number, Number> chart2dTemp = new LineChart<Number, Number>(xAxisTemp, yAxisTemp);
-        XYChart.Series seriesTemp = calculateTemperature(temperature, speed, step);
-        chart2dTemp.getData().add(seriesTemp);
-
-        LineChart<Number, Number> chart2dConsist = new LineChart<Number, Number>(xAxisCons, yAxisCons);
-        XYChart.Series seriesConsistention = calculateConsistention(temperature, speed, step);
-        chart2dConsist.getData().add(seriesConsistention);
-
-        DependenceViscosity.getChildren().add(chart2dConsist);
-        DependenceTemperature.getChildren().add(chart2dTemp);
-        long timeSpent = System.currentTimeMillis() - startTime;
-        timerLabel.setText("Время подсчета: " + String.valueOf(timeSpent) + " мс");
-        performanceLabel.setText("Производительность: " + String.valueOf(performanceCalc(channel.getHeight(), channel.getWidth(), speed, material.getDensity())) + " Кг/Ч");
     }
 
     private double performanceCalc(double height, double width, double speed, double density) {
         double Fch = 0.125 * Math.pow((height / width), 2) - 0.625 * (height / width) + 1;
         double Q = (width * height * speed) / 2 * Fch;
-        double G = density * Q * 3600;
-        return G;
+        return density * Q * 3600;
     }
 
     private XYChart.Series calculateTemperature(double temperature, double speed, double step) {
@@ -116,7 +141,7 @@ public class MainController {
         return series;
     }
 
-    private XYChart.Series calculateConsistention(double temperature, double speed, double step) {
+    private XYChart.Series calculateConsistencies(double temperature, double speed, double step) {
 
         XYChart.Series series = new XYChart.Series();
 
