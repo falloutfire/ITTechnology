@@ -1,6 +1,5 @@
 package sample.view;
 
-import javafx.event.Event;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
@@ -11,9 +10,6 @@ import javafx.scene.layout.AnchorPane;
 import sample.Objects.Channel;
 import sample.Objects.EmpiricalCoefficients;
 import sample.Objects.Material;
-
-import java.text.NumberFormat;
-import java.util.Locale;
 
 public class MainController {
 
@@ -40,29 +36,23 @@ public class MainController {
     }
 
     public void initialize() {
-        /*temperatureField.setOnKeyTyped(Event::consume);
-        speedField.setOnKeyTyped(Event::consume);
-        stepField.setOnKeyTyped(Event::consume);
-        lenghtField.setOnKeyTyped(Event::consume);
-        widthField.setOnKeyTyped(Event::consume);
-        heightField.setOnKeyTyped(Event::consume);
-        densityField.setOnKeyTyped(Event::consume);
-        heatField.setOnKeyTyped(Event::consume);
-        meltingField.setOnKeyTyped(Event::consume);*/
+
     }
 
 
     public void onClickCalculate() {
-
-
         EmpiricalCoefficients empCoef = new EmpiricalCoefficients(50000, 0.03, 120,
                 0.35, 250);
 
         double temperature = 0;
         double speed = 0;
         double step = 0;
-        double width, height, lenght = 0;
-        double density, heat, meltingTemperature = 0;
+        double width = 0;
+        double height = 0;
+        double lenght = 0;
+        double density = 0;
+        double heat = 0;
+        double meltingTemperature = 0;
 
         try {
             temperature = Double.parseDouble(temperatureField.getText().replace(',','.'));
@@ -74,8 +64,10 @@ public class MainController {
             lenght = Double.parseDouble(lenghtField.getText().replace(',','.'));
 
             density = Double.parseDouble(densityField.getText().replace(',','.'));
-            heat = Double.parseDouble(heightField.getText().replace(',','.'));
+            heat = Double.parseDouble(heatField.getText().replace(',','.'));
             meltingTemperature = Double.parseDouble(meltingField.getText().replace(',','.'));
+
+            System.out.println(density + " " + heat + " " + meltingTemperature);
 
             Channel channel = new Channel(width, height, lenght);
             Material material = new Material(density, heat, meltingTemperature);
@@ -84,11 +76,13 @@ public class MainController {
                 long startTime = System.currentTimeMillis();
 
                 LineChart<Number, Number> chart2dTemp = new LineChart<Number, Number>(xAxisTemp, yAxisTemp);
-                XYChart.Series seriesTemp = calculateTemperature(temperature, speed, step);
+                XYChart.Series seriesTemp = calculateTemperature(temperature, speed, step, channel, material, empCoef);
+                //XYChart.Series seriesTemp = calculateTemperature(temperature, speed, step, channel, material, empCoef);
                 chart2dTemp.getData().add(seriesTemp);
 
                 LineChart<Number, Number> chart2dConsist = new LineChart<Number, Number>(xAxisCons, yAxisCons);
-                XYChart.Series seriesConsistencies = calculateConsistencies(temperature, speed, step);
+                //XYChart.Series seriesConsistencies = calculateConsistenciesTest(temperature, speed, step, width, height, lenght, density, heat, meltingTemperature);
+                XYChart.Series seriesConsistencies = calculateConsistencies(temperature, speed, step, channel, material, empCoef);
                 chart2dConsist.getData().add(seriesConsistencies);
 
                 DependenceViscosity.getChildren().add(chart2dConsist);
@@ -96,7 +90,7 @@ public class MainController {
 
                 long timeSpent = System.currentTimeMillis() - startTime;
 
-                timerLabel.setText("Время подсчета: " + String.valueOf(timeSpent) + " мс");
+                timerLabel.setText("Время выполнения: " + String.valueOf(timeSpent) + " мс");
                 performanceLabel.setText("Производительность: " + String.valueOf(performanceCalc(channel.getHeight(), channel.getWidth(), speed, material.getDensity())) + " Кг/Ч");
 
             } else {
@@ -113,15 +107,14 @@ public class MainController {
         return density * Q * 3600;
     }
 
-    private XYChart.Series calculateTemperature(double temperature, double speed, double step) {
+    private XYChart.Series calculateTemperature(double temperature, double speed, double step, Channel channel, Material material, EmpiricalCoefficients empCoef) {
 
         XYChart.Series series = new XYChart.Series();
 
-        Channel channel = new Channel(0.2, 0.005, 7);
+        /*Channel channel = new Channel(0.2, 0.005, 7);
         Material material = new Material(920, 2300, 120);
         EmpiricalCoefficients empCoef = new EmpiricalCoefficients(50000, 0.03, 120,
-                0.35, 250);
-
+                0.35, 250);*/
 
         double Fch = 0.125 * Math.pow((channel.getHeight() / channel.getWidth()), 2) - 0.625 * (channel.getHeight() / channel.getWidth()) + 1;
         double Q = (channel.getWidth() * channel.getHeight() * speed) / 2 * Fch;
@@ -141,14 +134,9 @@ public class MainController {
         return series;
     }
 
-    private XYChart.Series calculateConsistencies(double temperature, double speed, double step) {
+    private XYChart.Series calculateConsistencies(double temperature, double speed, double step, Channel channel, Material material, EmpiricalCoefficients empCoef) {
 
         XYChart.Series series = new XYChart.Series();
-
-        Channel channel = new Channel(0.2, 0.005, 7);
-        Material material = new Material(920, 2300, 120);
-        EmpiricalCoefficients empCoef = new EmpiricalCoefficients(50000, 0.03, 120,
-                0.35, 250);
 
         double Fch = 0.125 * Math.pow((channel.getHeight() / channel.getWidth()), 2) - 0.625 * (channel.getHeight() / channel.getWidth()) + 1;
         double Q = (channel.getWidth() * channel.getHeight() * speed) / 2 * Fch;
