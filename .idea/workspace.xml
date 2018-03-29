@@ -2,12 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="20e9c2a9-1a03-43d8-ba6f-fc6ac2cce805" name="Default" comment="">
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/sample/Objects/ValueAdapter.java" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/src/main/java/sample/view/Main.fxml" afterPath="$PROJECT_DIR$/src/main/java/sample/view/Main.fxml" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/sample/view/MainController.java" afterPath="$PROJECT_DIR$/src/main/java/sample/view/MainController.java" />
-      <change beforePath="$PROJECT_DIR$/target/classes/sample/view/Main.fxml" afterPath="$PROJECT_DIR$/target/classes/sample/view/Main.fxml" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -23,7 +19,7 @@
       <file leaf-file-name="MainController.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/sample/view/MainController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="156">
+            <state relative-caret-position="2601">
               <caret line="153" column="16" lean-forward="true" selection-start-line="153" selection-start-column="16" selection-end-line="153" selection-end-column="72" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -410,7 +406,7 @@
       <workItem from="1522147549153" duration="3865000" />
       <workItem from="1522250900396" duration="16384000" />
       <workItem from="1522312623263" duration="2250000" />
-      <workItem from="1522320058610" duration="4670000" />
+      <workItem from="1522320058610" duration="5069000" />
     </task>
     <task id="LOCAL-00001" summary="add checking fields">
       <created>1522260373666</created>
@@ -433,11 +429,18 @@
       <option name="project" value="LOCAL" />
       <updated>1522269899555</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="adding pattern, value checker, table">
+      <created>1522324835051</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1522324835051</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="60450000" />
+    <option name="totallyTimeSpent" value="60849000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
@@ -452,7 +455,7 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3338816" sideWeight="0.5030257" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32980332" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3338816" sideWeight="0.4969743" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3338816" sideWeight="0.4969743" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -511,7 +514,8 @@
     <MESSAGE value="add checking fields" />
     <MESSAGE value="beta 0.1" />
     <MESSAGE value="beta 0.1 add private fxml field" />
-    <option name="LAST_COMMIT_MESSAGE" value="beta 0.1 add private fxml field" />
+    <MESSAGE value="adding pattern, value checker, table" />
+    <option name="LAST_COMMIT_MESSAGE" value="adding pattern, value checker, table" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -983,7 +987,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/sample/view/MainController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="156">
+        <state relative-caret-position="2601">
           <caret line="153" column="16" lean-forward="true" selection-start-line="153" selection-start-column="16" selection-end-line="153" selection-end-column="72" />
           <folding>
             <element signature="imports" expanded="true" />
