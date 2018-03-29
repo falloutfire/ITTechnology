@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
@@ -45,7 +46,7 @@
                                     <TextField fx:id="heatField" layoutX="14.0" layoutY="82.0" text="2300" />
                                     <TextField fx:id="meltingField" layoutX="14.0" layoutY="130.0" text="120" />
                                     <Label layoutX="14.0" layoutY="14.0" text="Плотность, кг/м³" />
-                                    <Label layoutX="14.0" layoutY="65.0" text="Удельная теплоемкость, Дж/(°C*м³)" />
+                                    <Label layoutX="14.0" layoutY="65.0" text="Удельная теплоемкость, Дж/(°C*кг)" />
                                     <Label layoutX="14.0" layoutY="113.0" text="Температура плавления, °C" />
                                  </children>
                               </AnchorPane>
@@ -53,11 +54,11 @@
                         </Tab>
                     </tabs>
                   </TabPane>
-                  <Button layoutX="212.0" layoutY="463.0" mnemonicParsing="false" onAction="#onClickCalculate" text="Calculate" />
-                  <TextField fx:id="stepField" layoutX="14.0" layoutY="387.0" text="0.1" />
-                  <Label layoutX="14.0" layoutY="370.0" text="Шаг сканирования" />
-                  <Label fx:id="timerLabel" layoutX="14.0" layoutY="429.0" text="Время выполнения:" />
-                  <Label fx:id="performanceLabel" layoutX="14.0" layoutY="446.0" text="Производительность: " />
+                  <Button layoutX="199.0" layoutY="463.0" mnemonicParsing="false" onAction="#onClickCalculate" prefHeight="25.0" prefWidth="74.0" text="Расчет" />
+                  <TextField fx:id="stepField" layoutX="14.0" layoutY="374.0" text="0.1" />
+                  <Label layoutX="14.0" layoutY="357.0" text="Шаг сканирования" />
+                  <Label fx:id="timerLabel" layoutX="14.0" layoutY="409.0" text="Время выполнения:" />
+                  <Label fx:id="performanceLabel" layoutX="14.0" layoutY="426.0" text="Производительность: " />
                </children>
             </AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
@@ -74,6 +75,21 @@
                           <AnchorPane fx:id="DependenceTemperature" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
                         </content>
                       </Tab>
+                        <Tab text="Отчет">
+                          <content>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                 <children>
+                                    <TableView fx:id="reportView" layoutX="14.0" layoutY="14.0" prefHeight="446.0" prefWidth="479.0">
+                                      <columns>
+                                        <TableColumn fx:id="numberColumn" prefWidth="45.0" text="№" />
+                                        <TableColumn fx:id="lenghtColumn" prefWidth="102.0" text="Длина" />
+                                          <TableColumn fx:id="consistColumn" prefWidth="92.0" text="Плотность" />
+                                          <TableColumn fx:id="temperatureColumn" prefWidth="93.0" text="Температура" />
+                                      </columns>
+                                    </TableView>
+                                 </children></AnchorPane>
+                          </content>
+                        </Tab>
                     </tabs>
                   </TabPane>
                </children>
