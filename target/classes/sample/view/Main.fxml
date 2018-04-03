@@ -59,6 +59,7 @@
                   <Label layoutX="14.0" layoutY="357.0" text="Шаг расчета по длине канала, м" />
                   <Label fx:id="timerLabel" layoutX="14.0" layoutY="409.0" text="Время выполнения:" />
                   <Label fx:id="performanceLabel" layoutX="14.0" layoutY="426.0" text="Производительность: " />
+                  <Button layoutX="14.0" layoutY="463.0" mnemonicParsing="false" onAction="#onClickExcel" text="Test excel" />
                </children>
             </AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
