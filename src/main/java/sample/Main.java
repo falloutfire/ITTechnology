@@ -21,7 +21,7 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception{
         this.primaryStage = primaryStage;
-        this.primaryStage.setTitle("Optimizatior");
+        this.primaryStage.setTitle("Mathematics Model");
         primaryStage.setResizable(false);
         primaryStage.sizeToScene();
         initRootLayout();
@@ -67,5 +67,9 @@ public class Main extends Application {
 
     public MainController getMainController(){
         return mainController;
+    }
+
+    public Stage getPrimaryStage() {
+        return primaryStage;
     }
 }

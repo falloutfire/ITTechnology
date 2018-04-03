@@ -11,15 +11,15 @@
    <top>
       <MenuBar BorderPane.alignment="CENTER">
         <menus>
-          <Menu mnemonicParsing="false" text="File">
+          <Menu mnemonicParsing="false" text="Файл">
                <items>
-                  <MenuItem mnemonicParsing="false" onAction="#handleClear" text="Clear" />
-                  <MenuItem mnemonicParsing="false" onAction="#handleClose" text="Close" />
+                  <MenuItem mnemonicParsing="false" onAction="#handleExport" text="Экспорт в Excel..." />
+                  <MenuItem mnemonicParsing="false" onAction="#handleClose" text="Закрыть" />
                </items>
           </Menu>
-          <Menu mnemonicParsing="false" text="Help">
+          <Menu mnemonicParsing="false" text="Помощь">
                <items>
-                  <MenuItem mnemonicParsing="false" onAction="#handleAbout" text="About" />
+                  <MenuItem mnemonicParsing="false" onAction="#handleAbout" text="О программе" />
                </items>
           </Menu>
         </menus>

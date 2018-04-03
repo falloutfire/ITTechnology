@@ -2,29 +2,20 @@ package sample.view;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
-//import javafx.scene.control.Cell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.ss.usermodel.*;
-import org.apache.poi.ss.usermodel.Cell;
 import sample.Objects.Channel;
 import sample.Objects.EmpiricalCoefficients;
 import sample.Objects.Material;
 import sample.Objects.ValueAdapter;
 
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
-import java.util.Date;
 import java.util.regex.Pattern;
 
 public class MainController {
@@ -73,10 +64,10 @@ public class MainController {
     }
 
     public void initialize() {
-        numberColumn.setCellValueFactory(new PropertyValueFactory<ValueAdapter, Integer>("number"));
-        lenghtColumn.setCellValueFactory(new PropertyValueFactory<ValueAdapter, String>("lenght"));
-        consistColumn.setCellValueFactory(new PropertyValueFactory<ValueAdapter, String>("consist"));
-        temperatureColumn.setCellValueFactory(new PropertyValueFactory<ValueAdapter, String>("temperature"));
+        numberColumn.setCellValueFactory(new PropertyValueFactory<>("number"));
+        lenghtColumn.setCellValueFactory(new PropertyValueFactory<>("lenght"));
+        consistColumn.setCellValueFactory(new PropertyValueFactory<>("consist"));
+        temperatureColumn.setCellValueFactory(new PropertyValueFactory<>("temperature"));
         reportView.setItems(values);
 
         Pattern p = Pattern.compile("(\\d+\\.?\\d*)?");
@@ -110,19 +101,19 @@ public class MainController {
     }
 
 
-    public void onClickCalculate() throws IOException {
+    public void onClickCalculate() {
         EmpiricalCoefficients empCoef = new EmpiricalCoefficients(50000, 0.03, 120,
                 0.35, 250);
 
-        double temperature = 0;
-        double speed = 0;
-        double step = 0;
-        double width = 0;
-        double height = 0;
-        double lenght = 0;
-        double density = 0;
-        double heat = 0;
-        double meltingTemperature = 0;
+        double temperature;
+        double speed;
+        double step;
+        double width;
+        double height;
+        double lenght;
+        double density;
+        double heat;
+        double meltingTemperature;
 
         try {
             temperature = Double.parseDouble(temperatureField.getText().replace(',', '.'));
@@ -146,7 +137,7 @@ public class MainController {
                 values.clear();
                 long startTime = System.currentTimeMillis();
 
-                LineChart<Number, Number> chart2dTemp = new LineChart<Number, Number>(xAxisTemp, yAxisTemp);
+                LineChart<Number, Number> chart2dTemp = new LineChart<>(xAxisTemp, yAxisTemp);
                 XYChart.Series seriesTemp = calculateTemperature(temperature, speed, step, channel, material, empCoef);
                 seriesTemp.setName("Зависимость температуры от длины канала");
                 chart2dTemp.getData().add(seriesTemp);
@@ -164,7 +155,6 @@ public class MainController {
 
                 timerLabel.setText("Время выполнения: " + String.valueOf(timeSpent) + " мс");
                 performanceLabel.setText("Производительность: " + String.valueOf(String.format("%.2f", performanceCalc(channel.getHeight(), channel.getWidth(), speed, material.getDensity()))) + " Кг/Ч");
-                writeIntoExcel("F:\\projects\\excel.xls", values);
                 System.out.println("Complete");
             } else {
                 getAlert();
@@ -245,63 +235,7 @@ public class MainController {
         alert.showAndWait();
     }
 
-
-
-    @SuppressWarnings("deprecation")
-    public static void writeIntoExcel(String file, ObservableList<ValueAdapter> values) throws FileNotFoundException, IOException {
-        Workbook book = new HSSFWorkbook();
-        Sheet sheet = book.createSheet("Viscosity");
-
-        // Нумерация начинается с нуля stroka
-        //Row row = sheet.createRow(0);
-
-        // Мы запишем имя и дату в два столбца
-        // имя будет String, а дата рождения --- Date,
-        // формата dd.mm.yyyy
-
-        Row row = sheet.createRow(0);
-        Cell lenght = row.createCell(0);
-        Cell consist = row.createCell(1);
-        Cell temp = row.createCell(2);
-        lenght.setCellValue("Length");
-        consist.setCellValue("Consistencies");
-        temp.setCellValue("Temperature");
-
-
-        for(int i = 0; i < values.size(); i++){
-            Row rows = sheet.createRow(i+1);
-            Cell lenghtCell = rows.createCell(0);
-            Cell consistCell = rows.createCell(1);
-            Cell temperatureCell = rows.createCell(2);
-            lenghtCell.setCellValue(values.get(i).getLenght());
-            consistCell.setCellValue(values.get(i).getConsist());
-            temperatureCell.setCellValue(values.get(i).getTemperature());
-        }
-
-       /* Cell name = row.createCell(0);
-        name.setCellValue("John");*/
-
-        /*Cell birthdate = row.createCell(1);
-
-        DataFormat format = book.createDataFormat();
-        CellStyle dateStyle = book.createCellStyle();
-        dateStyle.setDataFormat(format.getFormat("dd.mm.yyyy"));
-        birthdate.setCellStyle(dateStyle);
-
-
-        // Нумерация лет начинается с 1900-го
-        birthdate.setCellValue(new Date(110, 10, 10));*/
-
-        // Меняем размер столбца
-        sheet.autoSizeColumn(1);
-
-        // Записываем всё в файл
-        book.write(new FileOutputStream(file));
-        book.close();
-    }
-
-    public void onClickExcel(ActionEvent actionEvent) throws IOException {
-        writeIntoExcel("F:\\projects\\excel.xls", values);
-        System.out.println("Complete");
+    public ObservableList<ValueAdapter> getValues() {
+        return values;
     }
 }
