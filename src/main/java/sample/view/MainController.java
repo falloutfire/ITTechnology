@@ -20,6 +20,10 @@ import java.util.regex.Pattern;
 
 public class MainController {
 
+    public AnchorPane grapfPane;
+    public AnchorPane valuePane;
+    @FXML
+    private SplitPane splitPane;
     @FXML
     private AnchorPane DependenceViscosity;
     @FXML
@@ -59,6 +63,12 @@ public class MainController {
     public TableColumn<ValueAdapter, String> temperatureColumn;
 
     private ObservableList<ValueAdapter> values = FXCollections.observableArrayList();
+
+    Channel channel;
+    Material material;
+    EmpiricalCoefficients empCoef;
+    double temperature;
+    double speed;
 
     public MainController() {
     }
@@ -102,11 +112,7 @@ public class MainController {
 
 
     public void onClickCalculate() {
-        EmpiricalCoefficients empCoef = new EmpiricalCoefficients(50000, 0.03, 120,
-                0.35, 250);
 
-        double temperature;
-        double speed;
         double step;
         double width;
         double height;
@@ -130,21 +136,26 @@ public class MainController {
 
             System.out.println(density + " " + heat + " " + meltingTemperature);
 
-            Channel channel = new Channel(width, height, lenght);
-            Material material = new Material(density, heat, meltingTemperature);
+            channel = new Channel(width, height, lenght);
+            material = new Material(density, heat, meltingTemperature);
+            empCoef = new EmpiricalCoefficients(50000, 0.03, 120,
+                    0.35, 250);
 
-            if (step > 0 && speed > 0 && temperature > -273 && width > 0 && height > 0 && lenght > 0 && density > 0 && heat > 0 && meltingTemperature > 0 ) {
+            if (step > 0 && step <= channel.getLenght() && speed > 0 && temperature > -273 && width > 0 && height > 0 && lenght > 0 && density > 0 && heat > 0 && meltingTemperature > 0 ) {
                 values.clear();
                 long startTime = System.currentTimeMillis();
 
                 LineChart<Number, Number> chart2dTemp = new LineChart<>(xAxisTemp, yAxisTemp);
                 XYChart.Series seriesTemp = calculateTemperature(temperature, speed, step, channel, material, empCoef);
+                xAxisTemp.setLabel("Длина канала, м");
+                yAxisTemp.setLabel("Температура, °C");
                 seriesTemp.setName("Зависимость температуры от длины канала");
                 chart2dTemp.getData().add(seriesTemp);
 
                 LineChart<Number, Number> chart2dConsist = new LineChart<Number, Number>(xAxisCons, yAxisCons);
                 XYChart.Series seriesConsistencies = calculateConsistencies(temperature, speed, step, channel, material, empCoef, values);
-                //xAxisCons.setLabel("X");
+                xAxisCons.setLabel("Длина канала, м");
+                yAxisCons.setLabel("Вязкость, Па*с");
                 seriesConsistencies.setName("Зависимость вязкость от длины канала");
                 chart2dConsist.getData().add(seriesConsistencies);
 
@@ -154,7 +165,7 @@ public class MainController {
                 long timeSpent = System.currentTimeMillis() - startTime;
 
                 timerLabel.setText("Время выполнения: " + String.valueOf(timeSpent) + " мс");
-                performanceLabel.setText("Производительность: " + String.valueOf(String.format("%.2f", performanceCalc(channel.getHeight(), channel.getWidth(), speed, material.getDensity()))) + " Кг/Ч");
+                performanceLabel.setText("Производительность: " + String.valueOf(String.format("%.0f", performanceCalc(channel.getHeight(), channel.getWidth(), speed, material.getDensity()))) + " Кг/ч");
                 System.out.println("Complete");
             } else {
                 getAlert();
@@ -238,4 +249,25 @@ public class MainController {
     public ObservableList<ValueAdapter> getValues() {
         return values;
     }
+
+    public Channel getChannel() {
+        return channel;
+    }
+
+    public Material getMaterial() {
+        return material;
+    }
+
+    public EmpiricalCoefficients getEmpCoef() {
+        return empCoef;
+    }
+
+    public double getTemperature() {
+        return temperature;
+    }
+
+    public double getSpeed() {
+        return speed;
+    }
+
 }

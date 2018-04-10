@@ -1,100 +1,78 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-
-<AnchorPane prefHeight="500.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.view.MainController">
-   <children>
-      <SplitPane dividerPositions="0.362876254180602" prefHeight="500.0" prefWidth="800.0">
-        <items>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
-               <children>
-                  <TabPane layoutX="-2.0" layoutY="-1.0" prefHeight="358.0" prefWidth="294.0" tabClosingPolicy="UNAVAILABLE">
-                    <tabs>
-                      <Tab text="Режим">
-                        <content>
-                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="311.0" prefWidth="294.0">
-                                 <children>
-                                    <TextField fx:id="speedField" layoutX="14.0" layoutY="75.0" text="1.2" />
-                                    <TextField fx:id="temperatureField" layoutX="14.0" layoutY="31.0" text="150" />
-                                    <Label layoutX="14.0" layoutY="58.0" text="Скорость крышки, м/с" />
-                                    <Label layoutX="14.0" layoutY="14.0" text="Температура крышки, °C" />
-                                 </children>
-                              </AnchorPane>
-                        </content>
-                      </Tab>
-                      <Tab text="Канал">
-                        <content>
-                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                                 <children>
-                                    <TextField fx:id="lenghtField" layoutX="14.0" layoutY="31.0" text="7" />
-                                    <Label layoutX="14.0" layoutY="14.0" text="Длина, м" />
-                                    <Label layoutX="14.0" layoutY="65.0" text="Ширина, м" />
-                                    <TextField fx:id="widthField" layoutX="14.0" layoutY="82.0" text="0.2" />
-                                    <Label layoutX="12.0" layoutY="114.0" text="Глубина, м" />
-                                    <TextField fx:id="heightField" layoutX="14.0" layoutY="131.0" text="0.005" />
-                                 </children>
-                              </AnchorPane>
-                        </content>
-                      </Tab>
-                        <Tab text="Материал">
-                          <content>
-                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                                 <children>
-                                    <TextField fx:id="densityField" layoutX="14.0" layoutY="31.0" text="920" />
-                                    <TextField fx:id="heatField" layoutX="14.0" layoutY="82.0" text="2300" />
-                                    <TextField fx:id="meltingField" layoutX="14.0" layoutY="130.0" text="120" />
-                                    <Label layoutX="14.0" layoutY="14.0" text="Плотность, кг/м³" />
-                                    <Label layoutX="14.0" layoutY="65.0" text="Удельная теплоемкость, Дж/(°C*кг)" />
-                                    <Label layoutX="14.0" layoutY="113.0" text="Температура плавления, °C" />
-                                 </children>
-                              </AnchorPane>
-                          </content>
-                        </Tab>
-                    </tabs>
-                  </TabPane>
-                  <Button layoutX="199.0" layoutY="463.0" mnemonicParsing="false" onAction="#onClickCalculate" prefHeight="25.0" prefWidth="74.0" text="Расчет" />
-                  <TextField fx:id="stepField" layoutX="14.0" layoutY="374.0" text="0.1" />
-                  <Label layoutX="14.0" layoutY="357.0" text="Шаг расчета по длине канала, м" />
-                  <Label fx:id="timerLabel" layoutX="14.0" layoutY="409.0" text="Время выполнения:" />
-                  <Label fx:id="performanceLabel" layoutX="14.0" layoutY="426.0" text="Производительность: " />
-               </children>
-            </AnchorPane>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
-               <children>
-                  <TabPane prefHeight="498.0" prefWidth="527.0" tabClosingPolicy="UNAVAILABLE">
-                    <tabs>
-                      <Tab text="Вязкость">
-                        <content>
-                          <AnchorPane fx:id="DependenceViscosity" minHeight="0.0" minWidth="0.0" prefHeight="460.0" prefWidth="379.0" />
-                        </content>
-                      </Tab>
-                      <Tab text="Температура">
-                        <content>
-                          <AnchorPane fx:id="DependenceTemperature" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                        </content>
-                      </Tab>
-                        <Tab text="Отчет">
-                          <content>
-                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                                 <children>
-                                    <TableView fx:id="reportView" layoutX="14.0" layoutY="14.0" prefHeight="446.0" prefWidth="479.0">
-                                      <columns>
-                                        <TableColumn fx:id="numberColumn" prefWidth="45.0" text="№" />
-                                        <TableColumn fx:id="lenghtColumn" prefWidth="159.0" text="Координата по длине, м" />
-                                          <TableColumn fx:id="consistColumn" prefWidth="110.0" text="Вязкость, Па*с" />
-                                          <TableColumn fx:id="temperatureColumn" prefWidth="143.0" text="Температура, °C" />
-                                      </columns>
-                                    </TableView>
-                                 </children></AnchorPane>
-                          </content>
-                        </Tab>
-                    </tabs>
-                  </TabPane>
-               </children>
-            </AnchorPane>
-        </items>
-      </SplitPane>
-   </children>
+<AnchorPane prefHeight="500.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="sample.view.MainController">
+    <SplitPane fx:id="splitPane" dividerPositions="0.362876254180602" prefHeight="500.0" prefWidth="800.0">
+        <AnchorPane fx:id="valuePane" minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+            <TabPane layoutX="-2.0" layoutY="-1.0" prefHeight="358.0" prefWidth="294.0"
+                     tabClosingPolicy="UNAVAILABLE">
+                <Tab text="Режим">
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="311.0" prefWidth="294.0">
+                        <TextField fx:id="speedField" layoutX="14.0" layoutY="75.0" text="1.2"/>
+                        <TextField fx:id="temperatureField" layoutX="14.0" layoutY="31.0"
+                                   text="150"/>
+                        <Label layoutX="14.0" layoutY="58.0" text="Скорость крышки, м/с"/>
+                        <Label layoutX="14.0" layoutY="14.0" text="Температура крышки, °C"/>
+                    </AnchorPane>
+                </Tab>
+                <Tab text="Канал">
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                        <TextField fx:id="lenghtField" layoutX="14.0" layoutY="31.0" text="7"/>
+                        <Label layoutX="14.0" layoutY="14.0" text="Длина, м"/>
+                        <Label layoutX="14.0" layoutY="65.0" text="Ширина, м"/>
+                        <TextField fx:id="widthField" layoutX="14.0" layoutY="82.0" text="0.2"/>
+                        <Label layoutX="12.0" layoutY="114.0" text="Глубина, м"/>
+                        <TextField fx:id="heightField" layoutX="14.0" layoutY="131.0" text="0.005"/>
+                    </AnchorPane>
+                </Tab>
+                <Tab text="Материал">
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                        <TextField fx:id="densityField" layoutX="14.0" layoutY="31.0" text="920"/>
+                        <TextField fx:id="heatField" layoutX="14.0" layoutY="82.0" text="2300"/>
+                        <TextField fx:id="meltingField" layoutX="14.0" layoutY="130.0" text="120"/>
+                        <Label layoutX="14.0" layoutY="14.0" text="Плотность, кг/м³"/>
+                        <Label layoutX="14.0" layoutY="65.0"
+                               text="Удельная теплоемкость, Дж/(°C*кг)"/>
+                        <Label layoutX="14.0" layoutY="113.0" text="Температура плавления, °C"/>
+                    </AnchorPane>
+                </Tab>
+            </TabPane>
+            <Button layoutX="199.0" layoutY="463.0" mnemonicParsing="false" onAction="#onClickCalculate"
+                    prefHeight="25.0" prefWidth="74.0" text="Расчет"/>
+            <TextField fx:id="stepField" layoutX="14.0" layoutY="374.0" text="0.1"/>
+            <Label layoutX="14.0" layoutY="357.0" text="Шаг расчета по длине канала, м"/>
+            <Label fx:id="timerLabel" layoutX="14.0" layoutY="409.0" text="Время выполнения:"/>
+            <Label fx:id="performanceLabel" layoutX="14.0" layoutY="426.0" text="Производительность: "/>
+        </AnchorPane>
+        <AnchorPane fx:id="grapfPane" minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+            <TabPane prefHeight="498.0" prefWidth="527.0" tabClosingPolicy="UNAVAILABLE">
+                <Tab text="Вязкость">
+                    <AnchorPane fx:id="DependenceViscosity" minHeight="0.0" minWidth="0.0"
+                                prefHeight="460.0" prefWidth="379.0"/>
+                </Tab>
+                <Tab text="Температура">
+                    <AnchorPane fx:id="DependenceTemperature" minHeight="0.0" minWidth="0.0"
+                                prefHeight="180.0" prefWidth="200.0"/>
+                </Tab>
+                <Tab text="Отчет">
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                        <TableView fx:id="reportView" layoutX="14.0" layoutY="14.0"
+                                   prefHeight="446.0" prefWidth="479.0">
+                            <columns>
+                                <TableColumn fx:id="numberColumn" prefWidth="45.0" text="№"/>
+                                <TableColumn fx:id="lenghtColumn" prefWidth="159.0"
+                                             text="Координата по длине, м"/>
+                                <TableColumn fx:id="consistColumn" prefWidth="110.0"
+                                             text="Вязкость, Па*с"/>
+                                <TableColumn fx:id="temperatureColumn" prefWidth="143.0"
+                                             text="Температура, °C"/>
+                            </columns>
+                        </TableView>
+                    </AnchorPane>
+                </Tab>
+            </TabPane>
+        </AnchorPane>
+    </SplitPane>
 </AnchorPane>
