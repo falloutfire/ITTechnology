@@ -1,5 +1,7 @@
-package sample.view;
+package sample.ControllersFXML;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -9,11 +11,10 @@ import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
-import sample.Objects.Channel;
-import sample.Objects.EmpiricalCoefficients;
-import sample.Objects.Material;
-import sample.Objects.ValueAdapter;
+import sample.DAO.MaterialDAO;
+import sample.Objects.*;
 
+import java.sql.SQLException;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.regex.Pattern;
@@ -22,6 +23,23 @@ public class MainController {
 
     public AnchorPane grapfPane;
     public AnchorPane valuePane;
+
+    public TableView<MaterialBase> dataBaseTable;
+    public TableColumn<MaterialBase, Integer> idColumn;
+    public TableColumn<MaterialBase, Double> densityColumn;
+    public TableColumn<MaterialBase, Double>  heatCapColumn;
+    public TableColumn<MaterialBase, Double>  meltingcolumn;
+    public TableColumn<MaterialBase, Double>  speedColumn;
+    public TableColumn<MaterialBase, Double>  covertempColumn;
+    public TableColumn<MaterialBase, Double>  consistencyColumn;
+    public TableColumn<MaterialBase, Double>  viscosityColumn;
+    public TableColumn<MaterialBase, Double>  tempReduceColumn;
+    public TableColumn<MaterialBase, Double>  flowColumn;
+    public TableColumn<MaterialBase, Double>  heattransferColumn;
+    public TableColumn<MaterialBase, String> materialNameColumn;
+    public TextField materialIdText;
+    public ComboBox comboMaterialName;
+
     @FXML
     private SplitPane splitPane;
     @FXML
@@ -82,33 +100,79 @@ public class MainController {
 
         Pattern p = Pattern.compile("(\\d+\\.?\\d*)?");
         stepField.textProperty().addListener((observable, oldValue, newValue) -> {
-            if(!p.matcher(newValue).matches()) stepField.setText(oldValue);
+            if (!p.matcher(newValue).matches()) stepField.setText(oldValue);
         });
         temperatureField.textProperty().addListener((observable, oldValue, newValue) -> {
-            if(!p.matcher(newValue).matches()) temperatureField.setText(oldValue);
+            if (!p.matcher(newValue).matches()) temperatureField.setText(oldValue);
         });
         speedField.textProperty().addListener((observable, oldValue, newValue) -> {
-            if(!p.matcher(newValue).matches()) speedField.setText(oldValue);
+            if (!p.matcher(newValue).matches()) speedField.setText(oldValue);
         });
         lenghtField.textProperty().addListener((observable, oldValue, newValue) -> {
-            if(!p.matcher(newValue).matches()) lenghtField.setText(oldValue);
+            if (!p.matcher(newValue).matches()) lenghtField.setText(oldValue);
         });
         widthField.textProperty().addListener((observable, oldValue, newValue) -> {
-            if(!p.matcher(newValue).matches()) widthField.setText(oldValue);
+            if (!p.matcher(newValue).matches()) widthField.setText(oldValue);
         });
         heightField.textProperty().addListener((observable, oldValue, newValue) -> {
-            if(!p.matcher(newValue).matches()) heightField.setText(oldValue);
+            if (!p.matcher(newValue).matches()) heightField.setText(oldValue);
         });
         densityField.textProperty().addListener((observable, oldValue, newValue) -> {
-            if(!p.matcher(newValue).matches()) densityField.setText(oldValue);
+            if (!p.matcher(newValue).matches()) densityField.setText(oldValue);
         });
         heatField.textProperty().addListener((observable, oldValue, newValue) -> {
-            if(!p.matcher(newValue).matches()) heatField.setText(oldValue);
+            if (!p.matcher(newValue).matches()) heatField.setText(oldValue);
         });
         meltingField.textProperty().addListener((observable, oldValue, newValue) -> {
-            if(!p.matcher(newValue).matches()) meltingField.setText(oldValue);
+            if (!p.matcher(newValue).matches()) meltingField.setText(oldValue);
+        });
+
+        try {
+            addItemsCombo();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        comboMaterialName.valueProperty().addListener(new ChangeListener() {
+            @Override
+            public void changed(ObservableValue observable, Object oldValue, Object newValue) {
+                /*try {
+                    searchMaterial((String) newValue);
+                } catch (ClassNotFoundException | SQLException e) {
+                    e.printStackTrace();
+                }*/
+            }
         });
     }
+
+    /*public void searchMaterial(String materialName) throws ClassNotFoundException, SQLException {
+        try {
+            //Get Employee information
+            MaterialBase mat = MaterialDAO.searchMaterialBase(materialName);
+            //Populate Employee on TableView and Display on TextArea
+            populateMaterial(mat);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("Error occurred while getting employee information from DB.\n" + e);
+            throw e;
+        }
+    }*/
+
+    private void addItemsCombo() throws SQLException {
+        ObservableList<String> materialNames = MaterialDAO.searchAllMaterialName();
+        comboMaterialName.setItems(materialNames);
+    }
+
+
+    /*@FXML
+    private void populateMaterial (MaterialBase mat) throws ClassNotFoundException {
+        //Declare and ObservableList for table view
+        ObservableList<MaterialBase> matData = FXCollections.observableArrayList();
+        //Add employee to the ObservableList
+        matData.add(mat);
+        //Set items to the employeeTable
+        dataBaseTable.setItems(matData);
+    }*/
 
 
     public void onClickCalculate() {
@@ -141,7 +205,7 @@ public class MainController {
             empCoef = new EmpiricalCoefficients(50000, 0.03, 120,
                     0.35, 250);
 
-            if (step > 0 && step <= channel.getLenght() && speed > 0 && temperature > -273 && width > 0 && height > 0 && lenght > 0 && density > 0 && heat > 0 && meltingTemperature > 0 ) {
+            if (step > 0 && step <= channel.getLenght() && speed > 0 && temperature > -273 && width > 0 && height > 0 && lenght > 0 && density > 0 && heat > 0 && meltingTemperature > 0) {
                 values.clear();
                 long startTime = System.currentTimeMillis();
 
@@ -233,7 +297,7 @@ public class MainController {
             double viscosityMaterial = consistention * Math.pow(gamma, empCoef.getIndexMaterial() - 1); //взякость для зависимости
 
             series.getData().add(new XYChart.Data(i, viscosityMaterial));
-            values.add(new ValueAdapter(a, formater1.format(i) , formater.format(viscosityMaterial), formater.format(T)));
+            values.add(new ValueAdapter(a, formater1.format(i), formater.format(viscosityMaterial), formater.format(T)));
         }
         return series;
     }
@@ -270,4 +334,9 @@ public class MainController {
         return speed;
     }
 
+    public void onClickFindAll() throws SQLException {
+        ObservableList<MaterialBase> materialBases = MaterialDAO.searchAllMaterial();
+        //Populate Employee on TableView and Display on TextArea
+        dataBaseTable.setItems(materialBases);
+    }
 }

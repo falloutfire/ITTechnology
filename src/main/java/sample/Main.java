@@ -3,11 +3,11 @@ package sample;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
-import sample.view.MainController;
-import sample.view.RootLayoutController;
+import sample.ControllersFXML.*;
 
 import java.io.IOException;
 
@@ -17,6 +17,7 @@ public class Main extends Application {
     private Stage primaryStage;
     private BorderPane rootLayout;
     private MainController mainController;
+    private DataBaseLayoutController dataBaseLayoutController;
 
     @Override
     public void start(Stage primaryStage) throws Exception{
@@ -24,37 +25,89 @@ public class Main extends Application {
         this.primaryStage.setTitle("Mathematics Model");
         primaryStage.setResizable(false);
         primaryStage.sizeToScene();
-        initRootLayout();
-        showLayout();
+        showLoginPassLayout();
     }
 
-    private void showLayout() throws IOException {
+    public void openLayoutUser() throws IOException {
+        initRootLayoutUser();
+        showLayoutUser();
+    }
+
+    public void openLayoutAdmin() {
+        initRootLayoutAdmin();
+        showLayoutAdmin();
+    }
+
+    private void showLoginPassLayout() throws IOException {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(Main.class.getResource("view/LoginPassLayout.fxml"));
+        AnchorPane loginPane = loader.load();
+        Scene scene = new Scene(loginPane);
+        primaryStage.setScene(scene);
+        primaryStage.show();
+
+        LoginPassLayoutController loginPassLayoutController = loader.getController();
+        loginPassLayoutController.setMain(this);
+    }
+
+    private void showLayoutUser() throws IOException {
         try{
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(Main.class.getResource("view/Main.fxml"));
-            AnchorPane lruPane = loader.load();
+            AnchorPane mainPane = loader.load();
 
-            rootLayout.setCenter(lruPane);
+            rootLayout.setCenter(mainPane);
 
             mainController = loader.getController();
-
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    private void initRootLayout() throws IOException {
+    private void initRootLayoutUser() throws IOException {
         try{
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(Main.class.getResource("view/RootLayout.fxml"));
+            loader.setLocation(Main.class.getResource("view/RootLayoutUser.fxml"));
             rootLayout = (BorderPane) loader.load();
 
             Scene scene = new Scene(rootLayout);
             primaryStage.setScene(scene);
             primaryStage.show();
 
-            RootLayoutController rootLayoutController = loader.getController();
-            rootLayoutController.setMainApp(this);
+            RootLayoutUserController rootLayoutUserController = loader.getController();
+            rootLayoutUserController.setMainApp(this);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void showLayoutAdmin() {
+        try{
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(Main.class.getResource("view/DataBaseLayout.fxml"));
+            AnchorPane mainPane = loader.load();
+
+            rootLayout.setCenter(mainPane);
+
+            dataBaseLayoutController = loader.getController();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void initRootLayoutAdmin() {
+        try{
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(Main.class.getResource("view/RootLayoutAdmin.fxml"));
+            rootLayout = (BorderPane) loader.load();
+
+            Scene scene = new Scene(rootLayout);
+            primaryStage.setScene(scene);
+            primaryStage.show();
+
+            RootLayoutAdminController rootLayoutAdminController = loader.getController();
+            rootLayoutAdminController.setMainApp(this);
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -71,5 +124,14 @@ public class Main extends Application {
 
     public Stage getPrimaryStage() {
         return primaryStage;
+    }
+
+    public void aboutWindow(){
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Mathematics Model ");
+        alert.setHeaderText("О программе");
+        alert.setContentText("Авторы: Илья Лихачев, Илья Родионов\nГруппа 455");
+
+        alert.showAndWait();
     }
 }

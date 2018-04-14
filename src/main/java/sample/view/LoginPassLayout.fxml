@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.ControllersFXML.LoginPassLayoutController">
+   <children>
+      <Button layoutX="137.0" layoutY="161.0" mnemonicParsing="false" onAction="#onClickEnter" prefHeight="25.0" prefWidth="127.0" text="Войти" />
+      <TextField fx:id="loginField" layoutX="188.0" layoutY="86.0" />
+      <PasswordField fx:id="passwordField" layoutX="188.0" layoutY="120.0" />
+      <Label layoutX="76.0" layoutY="90.0" text="Имя пользователя" />
+      <Label layoutX="76.0" layoutY="124.0" text="Пароль" />
+      <Label layoutX="127.0" layoutY="46.0" text="Добро пожаловать, снова." />
+   </children>
+</AnchorPane>

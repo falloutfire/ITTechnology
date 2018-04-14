@@ -1,4 +1,4 @@
-package sample.view;
+package sample.ControllersFXML;
 
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -19,7 +19,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-public class RootLayoutController {
+public class RootLayoutUserController {
 
     private Main main;
 
@@ -30,12 +30,7 @@ public class RootLayoutController {
     }
 
     public void handleAbout(ActionEvent actionEvent) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Mathematics Model ");
-        alert.setHeaderText("О программе");
-        alert.setContentText("Авторы: Илья Лихачев, Илья Родионов\nГруппа 455");
-
-        alert.showAndWait();
+        main.aboutWindow();
     }
 
     public void setMainApp(Main main) {
