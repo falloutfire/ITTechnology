@@ -8,7 +8,7 @@
 
 <AnchorPane prefHeight="500.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.ControllersFXML.DataBaseLayoutController">
    <children>
-      <TableView fx:id="dataBaseTable" layoutX="249.0" layoutY="14.0" prefHeight="446.0" prefWidth="537.0">
+      <TableView fx:id="dataBaseTable" layoutX="249.0" layoutY="14.0" prefHeight="400.0" prefWidth="541.0">
          <columns>
             <TableColumn fx:id="idColumn" prefWidth="75.0" text="Material_ID" />
             <TableColumn fx:id="materialNameColumn" prefWidth="75.0" text="Material Name" />
@@ -27,9 +27,9 @@
       <Button layoutX="16.0" layoutY="293.0" mnemonicParsing="false" onAction="#onClickFindAll" prefHeight="25.0" prefWidth="149.0" text="Показать все" />
       <ComboBox fx:id="comboMaterialName" layoutX="16.0" layoutY="115.0" prefHeight="25.0" prefWidth="149.0" />
       <Button layoutX="182.0" layoutY="80.0" mnemonicParsing="false" onAction="#onClickFindMaterialByName" prefHeight="25.0" prefWidth="56.0" text="Найти" />
-      <Button layoutX="16.0" layoutY="259.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="149.0" text="Удалить выбранный" />
+      <Button layoutX="16.0" layoutY="259.0" mnemonicParsing="false" onAction="#onClickDeleteMaterial" prefHeight="25.0" prefWidth="149.0" text="Удалить выбранный" />
       <Button layoutX="16.0" layoutY="225.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="149.0" text="Обновить" />
-      <Button layoutX="16.0" layoutY="189.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="149.0" text="Добавить" />
+      <Button layoutX="16.0" layoutY="189.0" mnemonicParsing="false" onAction="#onClickAddMaterial" prefHeight="25.0" prefWidth="149.0" text="Добавить" />
       <TextField fx:id="searchByNameField" layoutX="16.0" layoutY="80.0" />
    </children>
 </AnchorPane>

@@ -937,6 +937,7 @@
       <Position>1</Position>
       <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
     <column id="238" parent="231" name="Material_type">
@@ -976,13 +977,13 @@
     </key>
     <column id="245" parent="233" name="Parameter_ID">
       <Position>1</Position>
-      <DataType>char(4)|0</DataType>
+      <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
     <column id="246" parent="233" name="Parameter_type">
       <Position>2</Position>
-      <DataType>char(20)|0</DataType>
+      <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
@@ -1010,7 +1011,7 @@
     </key>
     <column id="252" parent="234" name="Parameter_type">
       <Position>1</Position>
-      <DataType>char(20)|0</DataType>
+      <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
@@ -1026,7 +1027,7 @@
     </key>
     <column id="255" parent="235" name="Parameter_unit">
       <Position>1</Position>
-      <DataType>char(20)|0</DataType>
+      <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
@@ -1048,7 +1049,7 @@
     </column>
     <column id="259" parent="236" name="Parameter_ID">
       <Position>2</Position>
-      <DataType>char(4)|0</DataType>
+      <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
@@ -1059,19 +1060,28 @@
     </column>
     <column id="261" parent="236" name="Value_ID">
       <Position>4</Position>
-      <DataType>char(5)|0</DataType>
+      <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <index id="262" parent="236" name="Parameter_ID">
+    <index id="262" parent="236" name="parameter_value_Value_ID_uindex">
+      <ColNames>Value_ID</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <index id="263" parent="236" name="Parameter_ID">
       <ColNames>Parameter_ID</ColNames>
     </index>
-    <key id="263" parent="236" name="PRIMARY">
+    <key id="264" parent="236" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>Material_ID
 Parameter_ID
 Value_ID</ColNames>
       <Primary>1</Primary>
+    </key>
+    <key id="265" parent="236" name="parameter_value_Value_ID_uindex">
+      <ColNames>Value_ID</ColNames>
+      <UnderlyingIndexName>parameter_value_Value_ID_uindex</UnderlyingIndexName>
     </key>
   </database-model>
 </dataSource>

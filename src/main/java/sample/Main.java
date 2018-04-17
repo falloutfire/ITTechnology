@@ -6,6 +6,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import sample.ControllersFXML.*;
 
@@ -91,6 +92,7 @@ public class Main extends Application {
             rootLayout.setCenter(mainPane);
 
             dataBaseLayoutController = loader.getController();
+            dataBaseLayoutController.setMain(this);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -112,6 +114,31 @@ public class Main extends Application {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public boolean showMaterialAddDialog(){
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(Main.class.getResource("view/MaterialAddLayout.fxml"));
+            AnchorPane pane = loader.load();
+
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("Add Material");
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(primaryStage);
+            Scene scene = new Scene(pane);
+            dialogStage.setScene(scene);
+
+            MaterialAddLayoutController controller = loader.getController();
+            controller.setDialogStage(dialogStage);
+
+            dialogStage.showAndWait();
+            return controller.isOkClicked();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+
     }
 
     public static void main(String[] args) {

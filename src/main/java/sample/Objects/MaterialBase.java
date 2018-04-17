@@ -21,15 +21,15 @@ public class MaterialBase {
         this.material_id = new SimpleIntegerProperty();
         this.materialName = new SimpleStringProperty();
         this.density = new SimpleDoubleProperty();
-        this.capacity = new SimpleDoubleProperty();
-        this.melting = new SimpleDoubleProperty();
-        this.coverSpeed = new SimpleDoubleProperty();
-        this.coverTemp = new SimpleDoubleProperty();
-        this.consist = new SimpleDoubleProperty();
-        this.viscosity = new SimpleDoubleProperty();
+        this.capacity = new SimpleDoubleProperty();//
+        this.melting = new SimpleDoubleProperty();//
+        this.coverSpeed = new SimpleDoubleProperty();//
+        this.coverTemp = new SimpleDoubleProperty();//
+        this.consist = new SimpleDoubleProperty();//
+        this.viscosity = new SimpleDoubleProperty();//
         this.temp = new SimpleDoubleProperty();
-        this.flow = new SimpleDoubleProperty();
-        this.heatTrans = new SimpleDoubleProperty();
+        this.flow = new SimpleDoubleProperty();//
+        this.heatTrans = new SimpleDoubleProperty();//
     }
 
     public String getMaterialName() {

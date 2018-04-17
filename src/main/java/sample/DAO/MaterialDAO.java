@@ -4,6 +4,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import sample.Objects.MaterialBase;
 import sample.Util.DBUtil;
+import sun.security.pkcs11.Secmod;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -70,22 +71,6 @@ public class MaterialDAO {
         return materialBases;
     }
 
-    public static void updateMaterial(MaterialBase materialBase) throws ClassNotFoundException, SQLException {
-        String updateStmt =
-                //"BEGIN;\n" +
-                        "   UPDATE material\n" +
-                        "      SET Material_name = '" + materialBase.getMaterialName() + "'\n" +
-                        "    WHERE Material_ID = " + materialBase.getMaterial_id() + ";\n"; //+
-                        //"   COMMIT;\n";
-                        //"END;";
-        try {
-            DBUtil.dbExecuteUpdate(updateStmt);
-        } catch (SQLException e) {
-            System.out.print("Error occurred while UPDATE Operation: " + e);
-            throw e;
-        }
-    }
-
     private static MaterialBase getMaterialBaseFromResultSet(ResultSet rsMat, int materialId, String materialName) throws SQLException {
         MaterialBase materialBase = null;
         ArrayList<Double> values = new ArrayList<>();
@@ -108,4 +93,70 @@ public class MaterialDAO {
         return materialBase;
     }
 
+    public static void updateMaterialName(MaterialBase materialBase) throws ClassNotFoundException, SQLException {
+        String updateStmt =
+                "UPDATE material\n" +
+                        "SET Material_name = '" + materialBase.getMaterialName() + "'\n" +
+                        "WHERE Material_ID = " + materialBase.getMaterial_id() + ";\n";
+        try {
+            DBUtil.dbExecuteUpdate(updateStmt);
+        } catch (SQLException e) {
+            System.out.print("Error occurred while UPDATE Operation: " + e);
+            throw e;
+        }
+    }
+
+    public static void updateMaterialValue(MaterialBase materialBase, int value_ID, Double parameter) throws ClassNotFoundException, SQLException {
+        String updateStmt =
+                "UPDATE parameter_value\n" +
+                        "SET Parameter_value = " + parameter + "\n" +
+                        "WHERE Material_ID = " + materialBase.getMaterial_id() + " AND Parameter_ID = " + (value_ID - 1) + ";\n";
+        try {
+            DBUtil.dbExecuteUpdate(updateStmt);
+        } catch (SQLException e) {
+            System.out.print("Error occurred while UPDATE Operation: " + e);
+            throw e;
+        }
+    }
+
+    public static int addMAterialInBase(MaterialBase materialBase, String materialType) {
+        String addStmt = "INSERT INTO material (Material_type, Material_name) VALUES ('" + materialType + "', '"
+                + materialBase.getMaterialName() + "');\n";
+        String idStmt = "Select Material_ID from material where Material_name = '" + materialBase.getMaterialName() + "'";
+        int materialId = 0;
+        ResultSet rsMatName;
+        try {
+            DBUtil.dbExecuteUpdate(addStmt);
+            rsMatName = DBUtil.dbExecuteQuery(idStmt);
+            while (rsMatName.next()) {
+                materialId = rsMatName.getInt(1);
+            }
+
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return materialId;
+    }
+
+    public static void addMaterialInBase(int id, int parameterID, double parameterValue) {
+        try {
+            String addStmt = "INSERT INTO parameter_value (Material_ID, Parameter_ID, Parameter_value) VALUE (" +
+                    id + ", " + parameterID + ", " + parameterValue + ");";
+
+            DBUtil.dbExecuteUpdate(addStmt);
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void deleteMaterialBase(int materialId) throws SQLException, ClassNotFoundException {
+        String updateStmtMaterial =
+                "DELETE FROM material\n" +
+                        "WHERE Material_ID = " + materialId + ";";
+        String updateStmtValues =
+                "DELETE FROM parameter_value\n" +
+                        "WHERE Material_ID = " + materialId + ";";
+        DBUtil.dbExecuteUpdate(updateStmtMaterial);
+        DBUtil.dbExecuteUpdate(updateStmtValues);
+    }
 }
