@@ -1,9 +1,8 @@
 package sample.ControllersFXML;
 
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
@@ -27,18 +26,18 @@ public class MainController {
     public TableView<MaterialBase> dataBaseTable;
     public TableColumn<MaterialBase, Integer> idColumn;
     public TableColumn<MaterialBase, Double> densityColumn;
-    public TableColumn<MaterialBase, Double>  heatCapColumn;
-    public TableColumn<MaterialBase, Double>  meltingcolumn;
-    public TableColumn<MaterialBase, Double>  speedColumn;
-    public TableColumn<MaterialBase, Double>  covertempColumn;
-    public TableColumn<MaterialBase, Double>  consistencyColumn;
-    public TableColumn<MaterialBase, Double>  viscosityColumn;
-    public TableColumn<MaterialBase, Double>  tempReduceColumn;
-    public TableColumn<MaterialBase, Double>  flowColumn;
-    public TableColumn<MaterialBase, Double>  heattransferColumn;
+    public TableColumn<MaterialBase, Double> heatCapColumn;
+    public TableColumn<MaterialBase, Double> meltingcolumn;
+    public TableColumn<MaterialBase, Double> speedColumn;
+    public TableColumn<MaterialBase, Double> covertempColumn;
+    public TableColumn<MaterialBase, Double> consistencyColumn;
+    public TableColumn<MaterialBase, Double> viscosityColumn;
+    public TableColumn<MaterialBase, Double> tempReduceColumn;
+    public TableColumn<MaterialBase, Double> flowColumn;
+    public TableColumn<MaterialBase, Double> heattransferColumn;
     public TableColumn<MaterialBase, String> materialNameColumn;
     public TextField materialIdText;
-    public ComboBox comboMaterialName;
+    public Label materialNameLabel;
 
     @FXML
     private SplitPane splitPane;
@@ -85,8 +84,8 @@ public class MainController {
     Channel channel;
     Material material;
     EmpiricalCoefficients empCoef;
-    double temperature;
-    double speed;
+    MaterialBase materialBase;
+    double temperature, speed, alignmentTemperature, consistention, heatTransfer, indexMaterial, viscosity;
 
     public MainController() {
     }
@@ -97,6 +96,20 @@ public class MainController {
         consistColumn.setCellValueFactory(new PropertyValueFactory<>("consist"));
         temperatureColumn.setCellValueFactory(new PropertyValueFactory<>("temperature"));
         reportView.setItems(values);
+
+        idColumn.setCellValueFactory(cellData -> cellData.getValue().material_idProperty().asObject());
+        materialNameColumn.setCellValueFactory(cellData -> cellData.getValue().materialNameProperty());
+        densityColumn.setCellValueFactory(cellData -> cellData.getValue().densityProperty().asObject());
+        heatCapColumn.setCellValueFactory(cellData -> cellData.getValue().capacityProperty().asObject());
+        meltingcolumn.setCellValueFactory(cellData -> cellData.getValue().meltingProperty().asObject());
+        speedColumn.setCellValueFactory(cellData -> cellData.getValue().coverSpeedProperty().asObject());
+        covertempColumn.setCellValueFactory(cellData -> cellData.getValue().coverTempProperty().asObject());
+        consistencyColumn.setCellValueFactory(cellData -> cellData.getValue().consistProperty().asObject());
+        viscosityColumn.setCellValueFactory(cellData -> cellData.getValue().viscosityProperty().asObject());
+        tempReduceColumn.setCellValueFactory(cellData -> cellData.getValue().tempProperty().asObject());
+        flowColumn.setCellValueFactory(cellData -> cellData.getValue().flowProperty().asObject());
+        heattransferColumn.setCellValueFactory(cellData -> cellData.getValue().heatTransProperty().asObject());
+
 
         Pattern p = Pattern.compile("(\\d+\\.?\\d*)?");
         stepField.textProperty().addListener((observable, oldValue, newValue) -> {
@@ -127,53 +140,28 @@ public class MainController {
             if (!p.matcher(newValue).matches()) meltingField.setText(oldValue);
         });
 
-        try {
-            addItemsCombo();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        comboMaterialName.valueProperty().addListener(new ChangeListener() {
-            @Override
-            public void changed(ObservableValue observable, Object oldValue, Object newValue) {
-                /*try {
-                    searchMaterial((String) newValue);
-                } catch (ClassNotFoundException | SQLException e) {
-                    e.printStackTrace();
-                }*/
-            }
-        });
     }
 
-    /*public void searchMaterial(String materialName) throws ClassNotFoundException, SQLException {
+    @FXML
+    private void searchMaterial(String materialName) throws ClassNotFoundException, SQLException {
         try {
-            //Get Employee information
             MaterialBase mat = MaterialDAO.searchMaterialBase(materialName);
-            //Populate Employee on TableView and Display on TextArea
             populateMaterial(mat);
         } catch (SQLException e) {
             e.printStackTrace();
-            System.out.println("Error occurred while getting employee information from DB.\n" + e);
             throw e;
         }
-    }*/
-
-    private void addItemsCombo() throws SQLException {
-        ObservableList<String> materialNames = MaterialDAO.searchAllMaterialName();
-        comboMaterialName.setItems(materialNames);
     }
 
-
-    /*@FXML
+    @FXML
     private void populateMaterial (MaterialBase mat) throws ClassNotFoundException {
         //Declare and ObservableList for table view
         ObservableList<MaterialBase> matData = FXCollections.observableArrayList();
-        //Add employee to the ObservableList
+        //Add material to the ObservableList
         matData.add(mat);
-        //Set items to the employeeTable
+        //Set items to the materialTable
         dataBaseTable.setItems(matData);
-    }*/
-
+    }
 
     public void onClickCalculate() {
 
@@ -186,6 +174,8 @@ public class MainController {
         double meltingTemperature;
 
         try {
+            DependenceTemperature.getChildren().removeAll();
+            DependenceViscosity.getChildren().removeAll();
             temperature = Double.parseDouble(temperatureField.getText().replace(',', '.'));
             speed = Double.parseDouble(speedField.getText().replace(',', '.'));
             step = Double.parseDouble(stepField.getText().replace(',', '.'));
@@ -202,10 +192,14 @@ public class MainController {
 
             channel = new Channel(width, height, lenght);
             material = new Material(density, heat, meltingTemperature);
-            empCoef = new EmpiricalCoefficients(50000, 0.03, 120,
-                    0.35, 250);
 
-            if (step > 0 && step <= channel.getLenght() && speed > 0 && temperature > -273 && width > 0 && height > 0 && lenght > 0 && density > 0 && heat > 0 && meltingTemperature > 0) {
+
+            if (consistention > 0 && viscosity > 0 && alignmentTemperature > 0 && indexMaterial > 0 && heatTransfer > 0 &&
+                    step > 0 && step <= channel.getLenght() && speed > 0 && temperature > -273 && width > 0 && height > 0 &&
+                    lenght > 0 && density > 0 && heat > 0 && meltingTemperature > 0) {
+
+                empCoef = new EmpiricalCoefficients(consistention, viscosity, alignmentTemperature,
+                        indexMaterial, heatTransfer);
                 values.clear();
                 long startTime = System.currentTimeMillis();
 
@@ -336,7 +330,21 @@ public class MainController {
 
     public void onClickFindAll() throws SQLException {
         ObservableList<MaterialBase> materialBases = MaterialDAO.searchAllMaterial();
-        //Populate Employee on TableView and Display on TextArea
         dataBaseTable.setItems(materialBases);
+    }
+
+    public void onClickChooseMaterial(ActionEvent actionEvent) {
+        materialBase = dataBaseTable.getSelectionModel().getSelectedItem();
+        temperatureField.setText(String.valueOf(materialBase.getCoverTemp()));
+        speedField.setText(String.valueOf(materialBase.getCoverSpeed()));
+        densityField.setText(String.valueOf(materialBase.getDensity()));
+        heatField.setText(String.valueOf(materialBase.getCapacity()));
+        meltingField.setText(String.valueOf(materialBase.getMelting()));
+        alignmentTemperature = materialBase.getTemp();
+        consistention = materialBase.getConsist();
+        heatTransfer = materialBase.getHeatTrans();
+        viscosity = materialBase.getViscosity();
+        indexMaterial = materialBase.getFlow();
+        materialNameLabel.setText(materialBase.getMaterialName());
     }
 }

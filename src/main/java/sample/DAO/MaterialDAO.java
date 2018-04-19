@@ -2,9 +2,10 @@ package sample.DAO;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import sample.Objects.Material;
 import sample.Objects.MaterialBase;
 import sample.Util.DBUtil;
-import sun.security.pkcs11.Secmod;
+
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -119,7 +120,7 @@ public class MaterialDAO {
         }
     }
 
-    public static int addMAterialInBase(MaterialBase materialBase, String materialType) {
+    public static int addMaterialInBase(MaterialBase materialBase, String materialType) {
         String addStmt = "INSERT INTO material (Material_type, Material_name) VALUES ('" + materialType + "', '"
                 + materialBase.getMaterialName() + "');\n";
         String idStmt = "Select Material_ID from material where Material_name = '" + materialBase.getMaterialName() + "'";
@@ -158,5 +159,50 @@ public class MaterialDAO {
                         "WHERE Material_ID = " + materialId + ";";
         DBUtil.dbExecuteUpdate(updateStmtMaterial);
         DBUtil.dbExecuteUpdate(updateStmtValues);
+    }
+
+    public static ObservableList<String> getTypeMaterial() throws SQLException, ClassNotFoundException {
+        String getStmt = "SELECT Material_type FROM material_class";
+        ObservableList<String> types = FXCollections.observableArrayList();
+
+        ResultSet resultSet = DBUtil.dbExecuteQuery(getStmt);
+        while (resultSet.next()){
+            types.add(resultSet.getString(1));
+        }
+
+        return types;
+    }
+
+
+    public static ObservableList<MaterialBase> searchMaterialBaseLike(String materialName) throws SQLException, ClassNotFoundException {
+        //Declare a SELECT statement
+        String selectStmtName = "Select Material_ID, Material_name from material where Material_name LIKE '%" + materialName + "%'";
+        ArrayList<String> names = new ArrayList<>();
+        ArrayList<Integer> id = new ArrayList<>();
+        ObservableList<MaterialBase> materialBases = FXCollections.observableArrayList();
+        try {
+            ResultSet rsMatName = DBUtil.dbExecuteQuery(selectStmtName);
+            while (rsMatName.next()) {
+                //materialId = rsMatName.getInt(1);
+                //name = rsMatName.getString(2);
+                id.add(rsMatName.getInt(1));
+                names.add(rsMatName.getString(2));
+            }
+            for(int i = 0; i < id.size(); i++){
+                String selectStmtValue = "Select Parameter_value from parameter_value WHERE Material_id = " + id.get(i);
+                ResultSet rsMatValue = DBUtil.dbExecuteQuery(selectStmtValue);
+
+                //Send ResultSet to the getMaterialFromResultSet method and get employee object
+                materialBases.add(getMaterialBaseFromResultSet(rsMatValue, id.get(i), names.get(i)));
+
+            }
+
+            //Return materialBase object
+            return materialBases;
+        } catch (SQLException e) {
+            System.out.println("While searching an material with " + materialName + " id, an error occurred: " + e);
+            //Return exception
+            throw e;
+        }
     }
 }

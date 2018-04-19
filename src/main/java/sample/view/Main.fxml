@@ -10,14 +10,28 @@
           <items>
               <AnchorPane fx:id="valuePane" minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" SplitPane.resizableWithParent="false">
                  <children>
-                     <TabPane layoutX="-2.0" layoutY="-1.0" prefHeight="358.0" prefWidth="294.0" tabClosingPolicy="UNAVAILABLE">
+                     <TabPane layoutX="-2.0" layoutY="-1.0" prefHeight="309.0" prefWidth="294.0" tabClosingPolicy="UNAVAILABLE">
                         <tabs>
+                            <Tab text="Материал">
+                               <content>
+                                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                      <children>
+                                          <TextField fx:id="densityField" layoutX="14.0" layoutY="31.0" />
+                                          <TextField fx:id="heatField" layoutX="14.0" layoutY="82.0" />
+                                          <TextField fx:id="meltingField" layoutX="14.0" layoutY="130.0" />
+                                          <Label layoutX="14.0" layoutY="14.0" text="Плотность, кг/м³" />
+                                          <Label layoutX="14.0" layoutY="65.0" text="Удельная теплоемкость, Дж/(°C*кг)" />
+                                          <Label layoutX="14.0" layoutY="113.0" text="Температура плавления, °C" />
+                                      </children>
+                                   </AnchorPane>
+                               </content>
+                            </Tab>
                             <Tab text="Режим">
                                <content>
-                                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="311.0" prefWidth="294.0">
+                                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="292.0" prefWidth="294.0">
                                       <children>
-                                          <TextField fx:id="speedField" layoutX="14.0" layoutY="75.0" text="1.2" />
-                                          <TextField fx:id="temperatureField" layoutX="14.0" layoutY="31.0" text="150" />
+                                          <TextField fx:id="speedField" layoutX="14.0" layoutY="75.0" />
+                                          <TextField fx:id="temperatureField" layoutX="14.0" layoutY="31.0" />
                                           <Label layoutX="14.0" layoutY="58.0" text="Скорость крышки, м/с" />
                                           <Label layoutX="14.0" layoutY="14.0" text="Температура крышки, °C" />
                                       </children>
@@ -38,20 +52,6 @@
                                    </AnchorPane>
                                </content>
                             </Tab>
-                            <Tab text="Материал">
-                               <content>
-                                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                                      <children>
-                                          <TextField fx:id="densityField" layoutX="14.0" layoutY="31.0" text="920" />
-                                          <TextField fx:id="heatField" layoutX="14.0" layoutY="82.0" text="2300" />
-                                          <TextField fx:id="meltingField" layoutX="14.0" layoutY="130.0" text="120" />
-                                          <Label layoutX="14.0" layoutY="14.0" text="Плотность, кг/м³" />
-                                          <Label layoutX="14.0" layoutY="65.0" text="Удельная теплоемкость, Дж/(°C*кг)" />
-                                          <Label layoutX="14.0" layoutY="113.0" text="Температура плавления, °C" />
-                                      </children>
-                                   </AnchorPane>
-                               </content>
-                            </Tab>
                         </tabs>
                      </TabPane>
                      <Button layoutX="199.0" layoutY="463.0" mnemonicParsing="false" onAction="#onClickCalculate" prefHeight="25.0" prefWidth="74.0" text="Расчет" />
@@ -59,13 +59,40 @@
                      <Label layoutX="14.0" layoutY="357.0" text="Шаг расчета по длине канала, м" />
                      <Label fx:id="timerLabel" layoutX="14.0" layoutY="409.0" text="Время выполнения:" />
                      <Label fx:id="performanceLabel" layoutX="14.0" layoutY="426.0" text="Производительность: " />
-                  <ComboBox fx:id="comboMaterialName" layoutX="14.0" layoutY="459.0" prefWidth="150.0" />
+                  <Label layoutX="14.0" layoutY="308.0" text="Выбранный материал: " />
+                  <Label fx:id="materialNameLabel" layoutX="14.0" layoutY="325.0" prefHeight="17.0" prefWidth="268.0" />
                  </children>
               </AnchorPane>
               <AnchorPane fx:id="grapfPane" minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" SplitPane.resizableWithParent="false">
                  <children>
                      <TabPane prefHeight="498.0" prefWidth="505.0" tabClosingPolicy="UNAVAILABLE">
                         <tabs>
+                        <Tab text="База материалов">
+                          <content>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="469.0" prefWidth="460.0">
+                                 <children>
+                                    <TableView fx:id="dataBaseTable" layoutX="12.0" layoutY="14.0" prefHeight="352.0" prefWidth="483.0">
+                                      <columns>
+                                        <TableColumn fx:id="idColumn" prefWidth="75.0" text="Material_ID" />
+                                          <TableColumn fx:id="materialNameColumn" prefWidth="75.0" text="Material Name" />
+                                        <TableColumn fx:id="densityColumn" prefWidth="75.0" text="Density" />
+                                          <TableColumn fx:id="heatCapColumn" prefWidth="75.0" text="Heat Capacity" />
+                                          <TableColumn fx:id="meltingcolumn" prefWidth="75.0" text="Melting" />
+                                          <TableColumn fx:id="speedColumn" prefWidth="75.0" text="Cover Speed" />
+                                          <TableColumn fx:id="covertempColumn" prefWidth="75.0" text="Cover Temp" />
+                                          <TableColumn fx:id="consistencyColumn" prefWidth="75.0" text="Consistency" />
+                                          <TableColumn fx:id="viscosityColumn" prefWidth="75.0" text="Viscosity" />
+                                          <TableColumn fx:id="tempReduceColumn" prefWidth="75.0" text="Temp reduc" />
+                                          <TableColumn fx:id="flowColumn" prefWidth="75.0" text="Index of Flow" />
+                                          <TableColumn fx:id="heattransferColumn" prefWidth="75.0" text="Heat transfer" />
+                                      </columns>
+                                    </TableView>
+                                    <Button layoutX="12.0" layoutY="416.0" mnemonicParsing="false" onAction="#onClickChooseMaterial" text="Выбрать для исследования" />
+                                    <Button layoutX="190.0" layoutY="416.0" mnemonicParsing="false" onAction="#onClickFindAll" text="Показать все" />
+                                 </children>
+                              </AnchorPane>
+                          </content>
+                        </Tab>
                             <Tab text="Вязкость">
                                <content>
                                    <AnchorPane fx:id="DependenceViscosity" minHeight="0.0" minWidth="0.0" prefHeight="460.0" prefWidth="379.0" />
@@ -92,32 +119,6 @@
                                    </AnchorPane>
                                </content>
                             </Tab>
-                        <Tab text="БД">
-                          <content>
-                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="469.0" prefWidth="460.0">
-                                 <children>
-                                    <TableView fx:id="dataBaseTable" layoutX="12.0" layoutY="14.0" prefHeight="352.0" prefWidth="483.0">
-                                      <columns>
-                                        <TableColumn fx:id="idColumn" prefWidth="75.0" text="Material_ID" />
-                                          <TableColumn fx:id="materialNameColumn" prefWidth="75.0" text="Material Name" />
-                                        <TableColumn fx:id="densityColumn" prefWidth="75.0" text="Density" />
-                                          <TableColumn fx:id="heatCapColumn" prefWidth="75.0" text="Heat Capacity" />
-                                          <TableColumn fx:id="meltingcolumn" prefWidth="75.0" text="Melting" />
-                                          <TableColumn fx:id="speedColumn" prefWidth="75.0" text="Cover Speed" />
-                                          <TableColumn fx:id="covertempColumn" prefWidth="75.0" text="Cover Temp" />
-                                          <TableColumn fx:id="consistencyColumn" prefWidth="75.0" text="Consistency" />
-                                          <TableColumn fx:id="viscosityColumn" prefWidth="75.0" text="Viscosity" />
-                                          <TableColumn fx:id="tempReduceColumn" prefWidth="75.0" text="Temp reduc" />
-                                          <TableColumn fx:id="flowColumn" prefWidth="75.0" text="Index of Flow" />
-                                          <TableColumn fx:id="heattransferColumn" prefWidth="75.0" text="Heat transfer" />
-                                      </columns>
-                                    </TableView>
-                                    <Button layoutX="12.0" layoutY="416.0" mnemonicParsing="false" text="Search" />
-                                    <Button layoutX="75.0" layoutY="416.0" mnemonicParsing="false" onAction="#onClickFindAll" text="Find All" />
-                                 </children>
-                              </AnchorPane>
-                          </content>
-                        </Tab>
                         </tabs>
                      </TabPane>
                  </children>

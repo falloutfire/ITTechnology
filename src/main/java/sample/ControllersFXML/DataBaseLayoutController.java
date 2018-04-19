@@ -313,7 +313,7 @@ public class DataBaseLayoutController {
         }
     }
 
-    public void addItemsCombo() throws SQLException {
+    private void addItemsCombo() throws SQLException {
         ObservableList<String> materialNames = MaterialDAO.searchAllMaterialName();
         comboMaterialName.setItems(materialNames);
     }
@@ -329,8 +329,10 @@ public class DataBaseLayoutController {
     }
 
     public void onClickFindMaterialByName(ActionEvent actionEvent) throws SQLException, ClassNotFoundException {
-        MaterialBase materialBase = MaterialDAO.searchMaterialBase(searchByNameField.getText());
-        populateMaterial(materialBase);
+        //MaterialBase materialBase = MaterialDAO.searchMaterialBase(searchByNameField.getText());
+        //populateMaterial(materialBase);
+        ObservableList<MaterialBase> materialBases = MaterialDAO.searchMaterialBaseLike(searchByNameField.getText());
+        dataBaseTable.setItems(materialBases);
     }
 
     public void onClickAddMaterial(ActionEvent actionEvent) throws SQLException, ClassNotFoundException {
@@ -338,6 +340,7 @@ public class DataBaseLayoutController {
         if (okClicked) {
             ObservableList<MaterialBase> materialBases = MaterialDAO.searchAllMaterial();
             dataBaseTable.setItems(materialBases);
+            addItemsCombo();
         }
     }
 
@@ -357,6 +360,7 @@ public class DataBaseLayoutController {
             MaterialDAO.deleteMaterialBase(materialBase.getMaterial_id());
             ObservableList<MaterialBase> materialBases = MaterialDAO.searchAllMaterial();
             dataBaseTable.setItems(materialBases);
+            addItemsCombo();
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         }

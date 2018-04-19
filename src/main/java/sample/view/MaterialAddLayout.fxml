@@ -32,6 +32,6 @@
       <Label layoutX="285.0" layoutY="135.0" text="Температура &#10;приведения, " />
       <Label layoutX="285.0" layoutY="104.0" text="Вязкость," />
       <Label layoutX="285.0" layoutY="52.0" text="Коэффицент &#10;консистенции," />
-      <ComboBox layoutX="388.0" layoutY="14.0" prefWidth="150.0" />
+      <ComboBox fx:id="comboMaterialType" layoutX="388.0" layoutY="14.0" prefWidth="150.0" />
    </children>
 </AnchorPane>

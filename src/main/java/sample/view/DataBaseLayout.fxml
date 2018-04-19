@@ -24,11 +24,10 @@
             <TableColumn fx:id="heatTransferColumn" prefWidth="75.0" text="Heat transfer" />
          </columns>
       </TableView>
-      <Button layoutX="16.0" layoutY="293.0" mnemonicParsing="false" onAction="#onClickFindAll" prefHeight="25.0" prefWidth="149.0" text="Показать все" />
+      <Button layoutX="16.0" layoutY="261.0" mnemonicParsing="false" onAction="#onClickFindAll" prefHeight="25.0" prefWidth="149.0" text="Показать все" />
       <ComboBox fx:id="comboMaterialName" layoutX="16.0" layoutY="115.0" prefHeight="25.0" prefWidth="149.0" />
       <Button layoutX="182.0" layoutY="80.0" mnemonicParsing="false" onAction="#onClickFindMaterialByName" prefHeight="25.0" prefWidth="56.0" text="Найти" />
-      <Button layoutX="16.0" layoutY="259.0" mnemonicParsing="false" onAction="#onClickDeleteMaterial" prefHeight="25.0" prefWidth="149.0" text="Удалить выбранный" />
-      <Button layoutX="16.0" layoutY="225.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="149.0" text="Обновить" />
+      <Button layoutX="16.0" layoutY="225.0" mnemonicParsing="false" onAction="#onClickDeleteMaterial" prefHeight="25.0" prefWidth="149.0" text="Удалить выбранный" />
       <Button layoutX="16.0" layoutY="189.0" mnemonicParsing="false" onAction="#onClickAddMaterial" prefHeight="25.0" prefWidth="149.0" text="Добавить" />
       <TextField fx:id="searchByNameField" layoutX="16.0" layoutY="80.0" />
    </children>
