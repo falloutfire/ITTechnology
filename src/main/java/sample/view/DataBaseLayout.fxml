@@ -8,27 +8,26 @@
 
 <AnchorPane prefHeight="500.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.ControllersFXML.DataBaseLayoutController">
    <children>
-      <TableView fx:id="dataBaseTable" layoutX="249.0" layoutY="14.0" prefHeight="400.0" prefWidth="541.0">
+      <TableView fx:id="dataBaseTable" layoutX="249.0" layoutY="14.0" prefHeight="469.0" prefWidth="541.0">
          <columns>
-            <TableColumn fx:id="idColumn" prefWidth="75.0" text="Material_ID" />
-            <TableColumn fx:id="materialNameColumn" prefWidth="75.0" text="Material Name" />
-            <TableColumn fx:id="densityColumn" prefWidth="75.0" text="Density" />
-            <TableColumn fx:id="heatCapColumn" prefWidth="75.0" text="Heat Capacity" />
-            <TableColumn fx:id="meltingColumn" prefWidth="75.0" text="Melting" />
-            <TableColumn fx:id="speedColumn" prefWidth="75.0" text="Cover Speed" />
-            <TableColumn fx:id="coverTempColumn" prefWidth="75.0" text="Cover Temp" />
-            <TableColumn fx:id="consistencyColumn" prefWidth="75.0" text="Consistency" />
-            <TableColumn fx:id="viscosityColumn" prefWidth="75.0" text="Viscosity" />
-            <TableColumn fx:id="tempReduceColumn" prefWidth="75.0" text="Temp reduc" />
-            <TableColumn fx:id="flowColumn" prefWidth="75.0" text="Index of Flow" />
-            <TableColumn fx:id="heatTransferColumn" prefWidth="75.0" text="Heat transfer" />
+            <TableColumn fx:id="materialNameColumn" prefWidth="75.0" text="Название" />
+            <TableColumn fx:id="densityColumn" prefWidth="75.0" text="Плотность" />
+            <TableColumn fx:id="heatCapColumn" prefWidth="75.0" text="Теплоемкость" />
+            <TableColumn fx:id="meltingColumn" prefWidth="75.0" text="Температура кипения" />
+            <TableColumn fx:id="consistencyColumn" prefWidth="75.0" text="Коэф.консистенции" />
+            <TableColumn fx:id="viscosityColumn" prefWidth="75.0" text="Коэф.вязкости" />
+            <TableColumn fx:id="tempReduceColumn" prefWidth="75.0" text="Температура приведения" />
+            <TableColumn fx:id="flowColumn" prefWidth="75.0" text="Индекс течения" />
+            <TableColumn fx:id="heatTransferColumn" prefWidth="75.0" text="Коэф.теплоотдачи" />
          </columns>
       </TableView>
       <Button layoutX="16.0" layoutY="261.0" mnemonicParsing="false" onAction="#onClickFindAll" prefHeight="25.0" prefWidth="149.0" text="Показать все" />
-      <ComboBox fx:id="comboMaterialName" layoutX="16.0" layoutY="115.0" prefHeight="25.0" prefWidth="149.0" />
+      <ComboBox fx:id="comboMaterialName" layoutX="16.0" layoutY="343.0" prefHeight="25.0" prefWidth="149.0" />
       <Button layoutX="182.0" layoutY="80.0" mnemonicParsing="false" onAction="#onClickFindMaterialByName" prefHeight="25.0" prefWidth="56.0" text="Найти" />
       <Button layoutX="16.0" layoutY="225.0" mnemonicParsing="false" onAction="#onClickDeleteMaterial" prefHeight="25.0" prefWidth="149.0" text="Удалить выбранный" />
       <Button layoutX="16.0" layoutY="189.0" mnemonicParsing="false" onAction="#onClickAddMaterial" prefHeight="25.0" prefWidth="149.0" text="Добавить" />
       <TextField fx:id="searchByNameField" layoutX="16.0" layoutY="80.0" />
+      <Label layoutX="16.0" layoutY="56.0" text="Название материала:" />
+      <Label layoutX="16.0" layoutY="320.0" text="Список имеющихся материалов:" />
    </children>
 </AnchorPane>

@@ -2,11 +2,13 @@ package sample;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import sample.ControllersFXML.*;
 
@@ -72,6 +74,11 @@ public class Main extends Application {
             rootLayout = (BorderPane) loader.load();
 
             Scene scene = new Scene(rootLayout);
+
+            Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
+            primaryStage.setX((primScreenBounds.getWidth() - primaryStage.getWidth()) / 3);
+            primaryStage.setY((primScreenBounds.getHeight() - primaryStage.getHeight()) / 4);
+
             primaryStage.setScene(scene);
             primaryStage.show();
 
@@ -105,6 +112,11 @@ public class Main extends Application {
             rootLayout = (BorderPane) loader.load();
 
             Scene scene = new Scene(rootLayout);
+
+            Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
+            primaryStage.setX((primScreenBounds.getWidth() - primaryStage.getWidth()) / 3);
+            primaryStage.setY((primScreenBounds.getHeight() - primaryStage.getHeight()) / 4);
+
             primaryStage.setScene(scene);
             primaryStage.show();
 
@@ -130,6 +142,30 @@ public class Main extends Application {
             dialogStage.setScene(scene);
 
             MaterialAddLayoutController controller = loader.getController();
+            controller.setDialogStage(dialogStage);
+
+            dialogStage.showAndWait();
+            return controller.isOkClicked();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public boolean showChangePassDialog(){
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(Main.class.getResource("view/ChangePasswordLayout.fxml"));
+            AnchorPane pane = loader.load();
+
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("Смена пароля");
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(primaryStage);
+            Scene scene = new Scene(pane);
+            dialogStage.setScene(scene);
+
+            ChangePasswordLayoutController controller = loader.getController();
             controller.setDialogStage(dialogStage);
 
             dialogStage.showAndWait();

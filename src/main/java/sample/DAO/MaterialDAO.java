@@ -183,8 +183,6 @@ public class MaterialDAO {
         try {
             ResultSet rsMatName = DBUtil.dbExecuteQuery(selectStmtName);
             while (rsMatName.next()) {
-                //materialId = rsMatName.getInt(1);
-                //name = rsMatName.getString(2);
                 id.add(rsMatName.getInt(1));
                 names.add(rsMatName.getString(2));
             }
@@ -192,7 +190,7 @@ public class MaterialDAO {
                 String selectStmtValue = "Select Parameter_value from parameter_value WHERE Material_id = " + id.get(i);
                 ResultSet rsMatValue = DBUtil.dbExecuteQuery(selectStmtValue);
 
-                //Send ResultSet to the getMaterialFromResultSet method and get employee object
+                //Send ResultSet to the getMaterialFromResultSet method and get material object
                 materialBases.add(getMaterialBaseFromResultSet(rsMatValue, id.get(i), names.get(i)));
 
             }

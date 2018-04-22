@@ -21,8 +21,6 @@ public class MaterialAddLayoutController {
     public TextField densityField;
     public TextField heatCapField;
     public TextField meltingField;
-    public TextField speedField;
-    public TextField temperatureField;
     public TextField consistencyField;
     public TextField viscosityField;
     public TextField tempReducField;
@@ -31,8 +29,8 @@ public class MaterialAddLayoutController {
     public ComboBox comboMaterialType;
 
     private Stage dialogStage;
-    private MaterialBase materialBase = new MaterialBase();
     private boolean okClicked = false;
+    private MaterialBase materialBase = new MaterialBase();
     private String setType = null;
 
     public MaterialAddLayoutController() {
@@ -43,12 +41,6 @@ public class MaterialAddLayoutController {
         Pattern p = Pattern.compile("(\\d+\\.?\\d*)?");
         heatCapField.textProperty().addListener((observable, oldValue, newValue) -> {
             if (!p.matcher(newValue).matches()) heatCapField.setText(oldValue);
-        });
-        temperatureField.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (!p.matcher(newValue).matches()) temperatureField.setText(oldValue);
-        });
-        speedField.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (!p.matcher(newValue).matches()) speedField.setText(oldValue);
         });
         consistencyField.textProperty().addListener((observable, oldValue, newValue) -> {
             if (!p.matcher(newValue).matches()) consistencyField.setText(oldValue);
@@ -99,15 +91,13 @@ public class MaterialAddLayoutController {
             values.add(Double.parseDouble(densityField.getText()));
             values.add(Double.parseDouble(heatCapField.getText()));
             values.add(Double.parseDouble(meltingField.getText()));
-            values.add(Double.parseDouble(speedField.getText()));
-            values.add(Double.parseDouble(temperatureField.getText()));
+            values.add(120.0);
+            values.add(0.8);
             values.add(Double.parseDouble(consistencyField.getText()));
             values.add(Double.parseDouble(viscosityField.getText()));
             values.add(Double.parseDouble(tempReducField.getText()));
             values.add(Double.parseDouble(flowField.getText()));
             values.add(Double.parseDouble(heatTransfField.getText()));
-
-            //TODO написать chooser для типа материала
 
             int id = MaterialDAO.addMaterialInBase(materialBase, setType);
 
@@ -122,9 +112,9 @@ public class MaterialAddLayoutController {
 
     private boolean isInputValid() {
         if (nameField.getText() == null || densityField.getText() == null || heatCapField.getText() == null ||
-                meltingField.getText() == null || speedField.getText() == null || temperatureField.getText() == null ||
-                consistencyField.getText() == null || viscosityField.getText() == null || tempReducField.getText() == null ||
-                flowField.getText() == null || heatTransfField.getText() == null || heatTransfField.getText() == null || setType == null) {
+                meltingField.getText() == null || consistencyField.getText() == null || viscosityField.getText() == null ||
+                tempReducField.getText() == null || flowField.getText() == null || heatTransfField.getText() == null ||
+                heatTransfField.getText() == null || setType == null) {
 
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Ошибка");

@@ -34,7 +34,7 @@
                     <include>**/*.fxml</include>
                     <include>**/*.css</include>
                     <include>**/*.png</include>
-                    <include>**/*.java</include>
+                    <include>**/*.txt</include>
                 </includes>
             </resource>
         </resources>
