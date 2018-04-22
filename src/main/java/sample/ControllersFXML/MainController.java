@@ -170,6 +170,7 @@ public class MainController {
         try {
             DependenceTemperature.getChildren().clear();
             DependenceViscosity.getChildren().clear();
+
             temperature = Double.parseDouble(temperatureField.getText().replace(',', '.'));
             speed = Double.parseDouble(speedField.getText().replace(',', '.'));
             step = Double.parseDouble(stepField.getText().replace(',', '.'));
@@ -184,7 +185,7 @@ public class MainController {
 
             consistention = Double.parseDouble(consistencyField.getText());
             viscosity = Double.parseDouble(viscosityField.getText());
-            reduc = Double.parseDouble(viscosityField.getText());
+            reduc = Double.parseDouble(temperatureField.getText());
             indexMaterial = Double.parseDouble(indexFlowField.getText());
             heatTransfer = Double.parseDouble(heatField.getText());
 
