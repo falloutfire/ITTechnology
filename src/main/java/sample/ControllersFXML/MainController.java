@@ -205,14 +205,14 @@ public class MainController {
 
                 LineChart<Number, Number> chart2dTemp = new LineChart<>(xAxisTemp, yAxisTemp);
                 XYChart.Series seriesTemp = calculateTemperature(temperature, speed, step, channel, material, empCoef);
-                xAxisTemp.setLabel("Длина канала, м");
+                xAxisTemp.setLabel("Координата по длине канала, м");
                 yAxisTemp.setLabel("Температура, °C");
                 chart2dTemp.setLegendVisible(false);
                 chart2dTemp.getData().add(seriesTemp);
 
                 LineChart<Number, Number> chart2dConsist = new LineChart<Number, Number>(xAxisCons, yAxisCons);
                 XYChart.Series seriesConsistencies = calculateConsistencies(temperature, speed, step, channel, material, empCoef, values);
-                xAxisCons.setLabel("Длина канала, м");
+                xAxisCons.setLabel("Координата по длине канала, м");
                 yAxisCons.setLabel("Вязкость, Па*с");
                 chart2dConsist.setLegendVisible(false);
                 chart2dConsist.getData().add(seriesConsistencies);
@@ -223,7 +223,7 @@ public class MainController {
                 long timeSpent = System.currentTimeMillis() - startTime;
 
                 timerLabel.setText("Время выполнения: " + String.valueOf(timeSpent) + " мс");
-                performanceLabel.setText("Производительность: " + String.valueOf(String.format("%.0f", performanceCalc(channel.getHeight(), channel.getWidth(), speed, material.getDensity()))) + " rг/ч");
+                performanceLabel.setText("Производительность: " + String.valueOf(String.format("%.0f", performanceCalc(channel.getHeight(), channel.getWidth(), speed, material.getDensity()))) + " кг/ч");
             } else {
                 getAlert();
             }
