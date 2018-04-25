@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="20e9c2a9-1a03-43d8-ba6f-fc6ac2cce805" name="Default" comment="">
+    <list default="true" id="20e9c2a9-1a03-43d8-ba6f-fc6ac2cce805" name="Default" comment="Fix step and editing material">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/sample/ControllersFXML/LoginPassLayoutController.java" afterPath="$PROJECT_DIR$/src/main/java/sample/ControllersFXML/LoginPassLayoutController.java" />
       <change beforePath="$PROJECT_DIR$/src/main/java/sample/ControllersFXML/MainController.java" afterPath="$PROJECT_DIR$/src/main/java/sample/ControllersFXML/MainController.java" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/sample/ControllersFXML/RootLayoutUserController.java" afterPath="$PROJECT_DIR$/src/main/java/sample/ControllersFXML/RootLayoutUserController.java" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/sample/DAO/MaterialDAO.java" afterPath="$PROJECT_DIR$/src/main/java/sample/DAO/MaterialDAO.java" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/sample/Main.java" afterPath="$PROJECT_DIR$/src/main/java/sample/Main.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -94,17 +98,105 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="DataBaseLayoutController.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/sample/ControllersFXML/DataBaseLayoutController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1870">
+              <caret line="286" column="57" lean-forward="false" selection-start-line="286" selection-start-column="28" selection-end-line="286" selection-end-column="57" />
+              <folding>
+                <element signature="e#3193#4120#0" expanded="false" />
+                <element signature="e#4161#5072#0" expanded="false" />
+                <element signature="e#5117#6027#0" expanded="false" />
+                <element signature="e#6065#6972#0" expanded="false" />
+                <element signature="e#7013#7923#0" expanded="false" />
+                <element signature="e#7966#8878#0" expanded="false" />
+                <element signature="e#8919#10000#0" expanded="false" />
+                <element signature="e#10046#10959#0" expanded="false" />
+                <element signature="e#11003#11910#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="LoginPassLayoutController.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/sample/ControllersFXML/LoginPassLayoutController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="163">
+              <caret line="27" column="34" lean-forward="false" selection-start-line="27" selection-start-column="12" selection-end-line="27" selection-end-column="34" />
+              <folding>
+                <element signature="e#1437#1438#0" expanded="true" />
+                <element signature="e#1469#1470#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MaterialAddLayoutController.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/sample/ControllersFXML/MaterialAddLayoutController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="17">
+              <caret line="104" column="48" lean-forward="false" selection-start-line="104" selection-start-column="46" selection-end-line="104" selection-end-column="48" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MaterialDAO.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/sample/DAO/MaterialDAO.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="121">
+              <caret line="74" column="33" lean-forward="false" selection-start-line="74" selection-start-column="33" selection-end-line="74" selection-end-column="33" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="MainController.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/sample/ControllersFXML/MainController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="59">
-              <caret line="187" column="55" lean-forward="false" selection-start-line="187" selection-start-column="55" selection-end-line="187" selection-end-column="55" />
+            <state relative-caret-position="121">
+              <caret line="289" column="12" lean-forward="false" selection-start-line="289" selection-start-column="12" selection-end-line="289" selection-end-column="12" />
               <folding>
+                <element signature="e#8790#8806#0" expanded="true" />
                 <element signature="method#performanceCalc#0;class#MainController#0" expanded="false" />
-                <element signature="method#calculateTemperature#0;class#MainController#0" expanded="false" />
-                <element signature="method#calculateConsistencies#0;class#MainController#0" expanded="false" />
                 <element signature="method#getAlert#0;class#MainController#0" expanded="false" />
+                <element signature="e#16213#16214#0" expanded="true" />
+                <element signature="e#16246#16247#0" expanded="true" />
+                <element signature="e#16291#16292#0" expanded="true" />
+                <element signature="e#16326#16327#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Main.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/sample/Main.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-826">
+              <caret line="110" column="24" lean-forward="false" selection-start-line="110" selection-start-column="24" selection-end-line="110" selection-end-column="24" />
+              <folding>
+                <element signature="e#5993#5994#0" expanded="true" />
+                <element signature="e#6030#6031#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="parameter" pinned="false" current-in-tab="false">
+        <entry file="das://table:/439e962e/6287a458-9844-4907-ba70-1f98a0225dc2/isat.parameter">
+          <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+            <state>
+              <filtering enabled="true" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="RootLayoutUserController.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/sample/ControllersFXML/RootLayoutUserController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="136">
+              <caret line="25" column="46" lean-forward="false" selection-start-line="25" selection-start-column="46" selection-end-line="25" selection-end-column="46" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -114,16 +206,6 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="68">
               <caret line="4" column="13" lean-forward="false" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="pass.txt" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/sample/ControllersFXML/pass.txt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="4" lean-forward="false" selection-start-line="0" selection-start-column="4" selection-end-line="0" selection-end-column="4" />
               <folding />
             </state>
           </provider>
@@ -147,6 +229,7 @@
       <find>sp</find>
       <find>gra</find>
       <find>final String resourceF = getClass().getResource(&quot;pass.txt&quot;).toExternalForm();</find>
+      <find>4</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -188,7 +271,6 @@
         <option value="$PROJECT_DIR$/src/main/java/sample/view/RootLayoutAdminController.java" />
         <option value="$PROJECT_DIR$/src/main/java/sample/view/RootLayoutAdmin.fxml" />
         <option value="$PROJECT_DIR$/src/main/java/sample/view/DataBaseLayoutController.java" />
-        <option value="$PROJECT_DIR$/src/main/java/sample/ControllersFXML/RootLayoutUserController.java" />
         <option value="$APPLICATION_CONFIG_DIR$/consoles/db/6287a458-9844-4907-ba70-1f98a0225dc2/console.sql" />
         <option value="$PROJECT_DIR$/src/main/java/sample/Objects/MaterialBase.java" />
         <option value="$PROJECT_DIR$/src/main/java/sample/Util/DBUtil.java" />
@@ -197,17 +279,18 @@
         <option value="$PROJECT_DIR$/src/main/java/sample/view/ChangePasswordLayout.fxml" />
         <option value="$PROJECT_DIR$/src/main/java/sample/view/ChangePasswordLayoutController.java" />
         <option value="$PROJECT_DIR$/src/main/java/sample/view/Main.fxml" />
-        <option value="$PROJECT_DIR$/src/main/java/sample/DAO/MaterialDAO.java" />
         <option value="$PROJECT_DIR$/src/main/java/sample/ControllersFXML/pass.txt" />
         <option value="$PROJECT_DIR$/pom.xml" />
-        <option value="$PROJECT_DIR$/src/main/java/sample/ControllersFXML/LoginPassLayoutController.java" />
-        <option value="$PROJECT_DIR$/src/main/java/sample/Main.java" />
         <option value="$PROJECT_DIR$/src/main/java/sample/ControllersFXML/MaterialAddLayoutController.java" />
-        <option value="$PROJECT_DIR$/src/main/java/sample/ControllersFXML/DataBaseLayoutController.java" />
         <option value="$PROJECT_DIR$/src/main/java/sample/ControllersFXML/RootLayoutAdminController.java" />
         <option value="$PROJECT_DIR$/target/classes/sample/ControllersFXML/pass.txt" />
         <option value="$PROJECT_DIR$/src/main/java/sample/ControllersFXML/ChangePasswordLayoutController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/sample/ControllersFXML/DataBaseLayoutController.java" />
         <option value="$PROJECT_DIR$/src/main/java/sample/ControllersFXML/MainController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/sample/ControllersFXML/LoginPassLayoutController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/sample/Main.java" />
+        <option value="$PROJECT_DIR$/src/main/java/sample/ControllersFXML/RootLayoutUserController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/sample/DAO/MaterialDAO.java" />
       </list>
     </option>
   </component>
@@ -278,6 +361,9 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="AndroidView" />
+      <pane id="Scope" />
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -360,10 +446,7 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
       <pane id="PackagesPane" />
-      <pane id="Scratches" />
-      <pane id="AndroidView" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -583,7 +666,11 @@
       <workItem from="1524308286596" duration="11698000" />
       <workItem from="1524387666972" duration="5829000" />
       <workItem from="1524422769278" duration="349000" />
-      <workItem from="1524424049884" duration="912000" />
+      <workItem from="1524424049884" duration="1083000" />
+      <workItem from="1524555472415" duration="63000" />
+      <workItem from="1524662111492" duration="396000" />
+      <workItem from="1524683277797" duration="10105000" />
+      <workItem from="1524694674951" duration="432000" />
     </task>
     <task id="LOCAL-00001" summary="add checking fields">
       <created>1522260373666</created>
@@ -669,11 +756,18 @@
       <option name="project" value="LOCAL" />
       <updated>1524424246106</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="Fix temp reduc field">
+      <created>1524425050142</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1524425050142</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="210262000" />
+    <option name="totallyTimeSpent" value="221429000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
@@ -681,19 +775,19 @@
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32894737" sideWeight="0.4969743" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32401314" sideWeight="0.4969743" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3338816" sideWeight="0.5030257" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32980332" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.46546054" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.29769737" sideWeight="0.4969743" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.29769737" sideWeight="0.4969743" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.28214827" sideWeight="0.49041095" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.14145234" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.26626325" sideWeight="0.49041095" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.43799058" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24962178" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -786,19 +880,13 @@
     <MESSAGE value="add like, fix user and admin layout, add export from base to raschet (user table)" />
     <MESSAGE value="fix user and admin layout&#10;add change password" />
     <MESSAGE value="Fix координата по длине канала&#10;Fix кг" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fix координата по длине канала&#10;Fix кг" />
+    <MESSAGE value="Fix temp reduc field" />
+    <MESSAGE value="Fix step and editing material" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fix step and editing material" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/sample/ControllersFXML/MainController.java</url>
-          <line>290</line>
-          <properties />
-          <option name="timeStamp" value="26" />
-        </line-breakpoint>
-      </breakpoints>
-      <option name="time" value="30" />
+      <option name="time" value="33" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="Application">
@@ -830,10 +918,13 @@
         <state relative-caret-position="595">
           <caret line="40" column="0" lean-forward="false" selection-start-line="40" selection-start-column="0" selection-end-line="40" selection-end-column="0" />
           <folding>
+            <element signature="e#8790#8806#0" expanded="true" />
             <element signature="method#performanceCalc#0;class#MainController#0" expanded="false" />
-            <element signature="method#calculateTemperature#0;class#MainController#0" expanded="false" />
-            <element signature="method#calculateConsistencies#0;class#MainController#0" expanded="false" />
             <element signature="method#getAlert#0;class#MainController#0" expanded="false" />
+            <element signature="e#16213#16214#0" expanded="true" />
+            <element signature="e#16246#16247#0" expanded="true" />
+            <element signature="e#16291#16292#0" expanded="true" />
+            <element signature="e#16326#16327#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -850,7 +941,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="952">
           <caret line="69" column="5" lean-forward="false" selection-start-line="69" selection-start-column="5" selection-end-line="69" selection-end-column="5" />
-          <folding />
+          <folding>
+            <element signature="e#5993#5994#0" expanded="true" />
+            <element signature="e#6030#6031#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -897,10 +991,13 @@
         <state relative-caret-position="425">
           <caret line="30" column="0" lean-forward="true" selection-start-line="30" selection-start-column="0" selection-end-line="30" selection-end-column="0" />
           <folding>
+            <element signature="e#8790#8806#0" expanded="true" />
             <element signature="method#performanceCalc#0;class#MainController#0" expanded="false" />
-            <element signature="method#calculateTemperature#0;class#MainController#0" expanded="false" />
-            <element signature="method#calculateConsistencies#0;class#MainController#0" expanded="false" />
             <element signature="method#getAlert#0;class#MainController#0" expanded="false" />
+            <element signature="e#16213#16214#0" expanded="true" />
+            <element signature="e#16246#16247#0" expanded="true" />
+            <element signature="e#16291#16292#0" expanded="true" />
+            <element signature="e#16326#16327#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1006,7 +1103,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="322">
           <caret line="71" column="0" lean-forward="false" selection-start-line="71" selection-start-column="0" selection-end-line="71" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1018,20 +1114,6 @@
       </provider>
     </entry>
     <entry file="das://table:/439e962e/6287a458-9844-4907-ba70-1f98a0225dc2/isat.parameter_type">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state>
-          <filtering enabled="true" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="das://table:/439e962e/6287a458-9844-4907-ba70-1f98a0225dc2/isat.parameter_value">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state>
-          <filtering enabled="true" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="das://table:/439e962e/6287a458-9844-4907-ba70-1f98a0225dc2/isat.parameter">
       <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
         <state>
           <filtering enabled="true" />
@@ -1056,28 +1138,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/sample/DAO/MaterialDAO.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="39" column="5" lean-forward="false" selection-start-line="39" selection-start-column="5" selection-end-line="39" selection-end-column="5" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/sample/Objects/EmpiricalCoefficients.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="119">
           <caret line="7" column="29" lean-forward="false" selection-start-line="7" selection-start-column="29" selection-end-line="7" selection-end-column="29" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="das://table:/439e962e/6287a458-9844-4907-ba70-1f98a0225dc2/isat.material">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state>
-          <filtering enabled="true" />
         </state>
       </provider>
     </entry>
@@ -1086,22 +1150,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="357">
           <caret line="35" column="47" lean-forward="false" selection-start-line="35" selection-start-column="47" selection-end-line="35" selection-end-column="47" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/sample/ControllersFXML/MaterialAddLayoutController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="680">
-          <caret line="107" column="12" lean-forward="false" selection-start-line="107" selection-start-column="12" selection-end-line="108" selection-end-column="32" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/sample/ControllersFXML/LoginPassLayoutController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="126">
-          <caret line="23" column="8" lean-forward="true" selection-start-line="23" selection-start-column="8" selection-end-line="23" selection-end-column="8" />
           <folding />
         </state>
       </provider>
@@ -1139,27 +1187,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/sample/ControllersFXML/RootLayoutUserController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="21" column="13" lean-forward="false" selection-start-line="21" selection-start-column="13" selection-end-line="21" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/sample/ControllersFXML/pass.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="4" lean-forward="false" selection-start-line="0" selection-start-column="4" selection-end-line="0" selection-end-column="4" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/sample/ControllersFXML/RootLayoutAdminController.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="323">
           <caret line="26" column="5" lean-forward="true" selection-start-line="26" selection-start-column="5" selection-end-line="26" selection-end-column="5" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1175,16 +1206,34 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="17">
           <caret line="25" column="34" lean-forward="false" selection-start-line="25" selection-start-column="34" selection-end-line="25" selection-end-column="34" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/target/classes/sample/ControllersFXML/pass.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="4" lean-forward="false" selection-start-line="0" selection-start-column="4" selection-end-line="0" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="das://table:/439e962e/6287a458-9844-4907-ba70-1f98a0225dc2/isat.parameter">
+      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+        <state>
+          <filtering enabled="true" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/sample/ControllersFXML/pass.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="4" lean-forward="false" selection-start-line="0" selection-start-column="4" selection-end-line="0" selection-end-column="4" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/sample/ControllersFXML/DataBaseLayoutController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="286" column="57" lean-forward="false" selection-start-line="286" selection-start-column="8" selection-end-line="286" selection-end-column="57" />
+        <state relative-caret-position="1870">
+          <caret line="286" column="57" lean-forward="false" selection-start-line="286" selection-start-column="28" selection-end-line="286" selection-end-column="57" />
           <folding>
             <element signature="e#3193#4120#0" expanded="false" />
             <element signature="e#4161#5072#0" expanded="false" />
@@ -1195,37 +1244,82 @@
             <element signature="e#8919#10000#0" expanded="false" />
             <element signature="e#10046#10959#0" expanded="false" />
             <element signature="e#11003#11910#0" expanded="false" />
-            <element signature="e#14335#14336#0" expanded="true" />
-            <element signature="e#14367#14368#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="das://table:/439e962e/6287a458-9844-4907-ba70-1f98a0225dc2/isat.material">
+      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+        <state>
+          <filtering enabled="true" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="das://table:/439e962e/6287a458-9844-4907-ba70-1f98a0225dc2/isat.parameter_value">
+      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+        <state>
+          <filtering enabled="true" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/sample/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="345">
-          <caret line="150" column="25" lean-forward="false" selection-start-line="150" selection-start-column="25" selection-end-line="150" selection-end-column="25" />
+        <state relative-caret-position="-826">
+          <caret line="110" column="24" lean-forward="false" selection-start-line="110" selection-start-column="24" selection-end-line="110" selection-end-column="24" />
+          <folding>
+            <element signature="e#5993#5994#0" expanded="true" />
+            <element signature="e#6030#6031#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/sample/ControllersFXML/MaterialAddLayoutController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="104" column="48" lean-forward="false" selection-start-line="104" selection-start-column="46" selection-end-line="104" selection-end-column="48" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/target/classes/sample/ControllersFXML/pass.txt">
+    <entry file="file://$PROJECT_DIR$/src/main/java/sample/ControllersFXML/LoginPassLayoutController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="4" lean-forward="false" selection-start-line="0" selection-start-column="4" selection-end-line="0" selection-end-column="4" />
+        <state relative-caret-position="163">
+          <caret line="27" column="34" lean-forward="false" selection-start-line="27" selection-start-column="12" selection-end-line="27" selection-end-column="34" />
+          <folding>
+            <element signature="e#1437#1438#0" expanded="true" />
+            <element signature="e#1469#1470#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/sample/ControllersFXML/RootLayoutUserController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="25" column="46" lean-forward="false" selection-start-line="25" selection-start-column="46" selection-end-line="25" selection-end-column="46" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/sample/DAO/MaterialDAO.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="121">
+          <caret line="74" column="33" lean-forward="false" selection-start-line="74" selection-start-column="33" selection-end-line="74" selection-end-column="33" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/sample/ControllersFXML/MainController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="59">
-          <caret line="187" column="55" lean-forward="false" selection-start-line="187" selection-start-column="55" selection-end-line="187" selection-end-column="55" />
+        <state relative-caret-position="121">
+          <caret line="289" column="12" lean-forward="false" selection-start-line="289" selection-start-column="12" selection-end-line="289" selection-end-column="12" />
           <folding>
+            <element signature="e#8790#8806#0" expanded="true" />
             <element signature="method#performanceCalc#0;class#MainController#0" expanded="false" />
-            <element signature="method#calculateTemperature#0;class#MainController#0" expanded="false" />
-            <element signature="method#calculateConsistencies#0;class#MainController#0" expanded="false" />
             <element signature="method#getAlert#0;class#MainController#0" expanded="false" />
+            <element signature="e#16213#16214#0" expanded="true" />
+            <element signature="e#16246#16247#0" expanded="true" />
+            <element signature="e#16291#16292#0" expanded="true" />
+            <element signature="e#16326#16327#0" expanded="true" />
           </folding>
         </state>
       </provider>

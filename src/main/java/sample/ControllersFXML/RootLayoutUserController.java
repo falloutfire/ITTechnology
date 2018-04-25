@@ -23,7 +23,7 @@ public class RootLayoutUserController {
 
     private Main main;
 
-    ObservableList<ValueAdapter> values;
+    private ObservableList<ValueAdapter> values;
 
     public void handleClose(ActionEvent actionEvent) {
         System.exit(0);
@@ -142,6 +142,19 @@ public class RootLayoutUserController {
                     viscosityVal.setCellValue(empCoef.getViscosity());
                     heatTransferVal.setCellValue(empCoef.getHeatTransfer());
                 }
+
+                if(i == 9){
+                    Cell widthVal = rows.createCell(4);
+                    Cell heightVal = rows.createCell(5);
+                    widthVal.setCellValue("Название материала");
+                    heightVal.setCellValue("Производительность");
+                }
+                if (i == 10) {
+                    Cell widthVal = rows.createCell(4);
+                    Cell heightVal = rows.createCell(5);
+                    widthVal.setCellValue(main.getMainController().getMaterialBase().getMaterialName());
+                    heightVal.setCellValue(main.getMainController().getPerfomance());
+                }
                 Cell lenghtCell = rows.createCell(0);
                 Cell consistCell = rows.createCell(1);
                 Cell temperatureCell = rows.createCell(2);
@@ -154,6 +167,13 @@ public class RootLayoutUserController {
             sheet.autoSizeColumn(1);
             book.write(new FileOutputStream(file));
             book.close();
+
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Экспорт");
+            alert.setHeaderText("Экспорт завершен");
+            alert.setContentText("Результаты моделирования сохранены в отчет:\n" + file.getPath());
+
+            alert.showAndWait();
 
         } catch (IOException e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);

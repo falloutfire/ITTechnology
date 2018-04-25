@@ -28,10 +28,9 @@ public class MaterialDAO {
             ResultSet rsMatValue = DBUtil.dbExecuteQuery(selectStmtValue);
 
             //Send ResultSet to the getMaterialFromResultSet method and get employee object
-            MaterialBase materialBase = getMaterialBaseFromResultSet(rsMatValue, materialId, name);
 
             //Return materialBase object
-            return materialBase;
+            return getMaterialBaseFromResultSet(rsMatValue, materialId, name);
         } catch (SQLException e) {
             System.out.println("While searching an material with " + materialName + " id, an error occurred: " + e);
             //Return exception
@@ -73,7 +72,7 @@ public class MaterialDAO {
     }
 
     private static MaterialBase getMaterialBaseFromResultSet(ResultSet rsMat, int materialId, String materialName) throws SQLException {
-        MaterialBase materialBase = null;
+        MaterialBase materialBase;
         ArrayList<Double> values = new ArrayList<>();
         while (rsMat.next()) {
             values.add(rsMat.getDouble(1));
@@ -111,7 +110,7 @@ public class MaterialDAO {
         String updateStmt =
                 "UPDATE parameter_value\n" +
                         "SET Parameter_value = " + parameter + "\n" +
-                        "WHERE Material_ID = " + materialBase.getMaterial_id() + " AND Parameter_ID = " + (value_ID - 1) + ";\n";
+                        "WHERE Material_ID = " + materialBase.getMaterial_id() + " AND Parameter_ID = " + (value_ID) + ";\n";
         try {
             DBUtil.dbExecuteUpdate(updateStmt);
         } catch (SQLException e) {

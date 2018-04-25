@@ -81,11 +81,12 @@ public class MainController {
 
     private ObservableList<ValueAdapter> values = FXCollections.observableArrayList();
 
-    Channel channel;
-    Material material;
-    EmpiricalCoefficients empCoef;
-    MaterialBase materialBase;
-    double temperature, speed;
+    private Channel channel;
+    private Material material;
+    private EmpiricalCoefficients empCoef;
+    private MaterialBase materialBase;
+    private double temperature, speed;
+    private String perfomance;
 
     public MainController() {
     }
@@ -224,7 +225,8 @@ public class MainController {
                 long timeSpent = System.currentTimeMillis() - startTime;
 
                 timerLabel.setText("Время выполнения: " + String.valueOf(timeSpent) + " мс");
-                performanceLabel.setText("Производительность: " + String.valueOf(String.format("%.0f", performanceCalc(channel.getHeight(), channel.getWidth(), speed, material.getDensity()))) + " кг/ч");
+                perfomance = String.valueOf(String.format("%.0f", performanceCalc(channel.getHeight(), channel.getWidth(), speed, material.getDensity())));
+                performanceLabel.setText("Производительность: " + perfomance + " кг/ч");
             } else {
                 getAlert();
             }
@@ -243,17 +245,12 @@ public class MainController {
 
         XYChart.Series series = new XYChart.Series();
 
-        /*Channel channel = new Channel(0.2, 0.005, 7);
-        Material material = new Material(920, 2300, 120);
-        EmpiricalCoefficients empCoef = new EmpiricalCoefficients(50000, 0.03, 120,
-                0.35, 250);*/
-
         double Fch = 0.125 * Math.pow((channel.getHeight() / channel.getWidth()), 2) - 0.625 * (channel.getHeight() / channel.getWidth()) + 1;
         double Q = (channel.getWidth() * channel.getHeight() * speed) / 2 * Fch;
         double G = material.getDensity() * Q * 3600;
 
 
-        for (double i = 0; i <= channel.getLenght(); i = i + step) {
+        for (float i = 0; i <= channel.getLenght(); i = i + (float) step) {
             double gamma = speed / channel.getHeight();
             double qGamma = channel.getWidth() * channel.getHeight() * empCoef.getConsistention() * Math.pow(gamma, empCoef.getIndexMaterial() + 1);
             double qAlpha = channel.getWidth() * empCoef.getHeatTransfer() * ((1 / empCoef.getViscosity()) - temperature + empCoef.getAlignmentTemperature());
@@ -278,7 +275,7 @@ public class MainController {
 
         int a = 0;
 
-        for (double i = 0; i <= channel.getLenght(); i = i + step) {
+        for (float i = 0; i <= channel.getLenght(); i = i + (float) step) {
             a++;
             double gamma = speed / channel.getHeight();
             double qGamma = channel.getWidth() * channel.getHeight() * empCoef.getConsistention() * Math.pow(gamma, empCoef.getIndexMaterial() + 1);
@@ -352,5 +349,13 @@ public class MainController {
     private void onClickFindMaterialByName(ActionEvent actionEvent) throws SQLException, ClassNotFoundException {
         ObservableList<MaterialBase> materialBases = MaterialDAO.searchMaterialBaseLike(searchByNameField.getText());
         dataBaseTable.setItems(materialBases);
+    }
+
+    public String getPerfomance() {
+        return perfomance;
+    }
+
+    public MaterialBase getMaterialBase() {
+        return materialBase;
     }
 }

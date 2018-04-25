@@ -23,6 +23,7 @@ public class LoginPassLayoutController {
         final String resourceF = getClass().getResource("pass.txt").toExternalForm();
         List<String> lines = Files.readAllLines(Paths.get(resourceF.substring(6)), Charset.defaultCharset());
         String password = lines.get(0);
+
         if(Objects.equals(login, "Man") && Objects.equals(pass, "test")) {
             main.openLayoutUser();
         } else if (Objects.equals(login, "Admin") && Objects.equals(pass, password)) {

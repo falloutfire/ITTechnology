@@ -20,10 +20,9 @@ public class Main extends Application {
     private Stage primaryStage;
     private BorderPane rootLayout;
     private MainController mainController;
-    private DataBaseLayoutController dataBaseLayoutController;
 
     @Override
-    public void start(Stage primaryStage) throws Exception{
+    public void start(Stage primaryStage) throws Exception {
         this.primaryStage = primaryStage;
         this.primaryStage.setTitle("Mathematics Model");
         primaryStage.setResizable(false);
@@ -31,12 +30,12 @@ public class Main extends Application {
         showLoginPassLayout();
     }
 
-    public void openLayoutUser() throws IOException {
+    public void openLayoutUser(){
         initRootLayoutUser();
         showLayoutUser();
     }
 
-    public void openLayoutAdmin() {
+    public void openLayoutAdmin(){
         initRootLayoutAdmin();
         showLayoutAdmin();
     }
@@ -53,8 +52,8 @@ public class Main extends Application {
         loginPassLayoutController.setMain(this);
     }
 
-    private void showLayoutUser() throws IOException {
-        try{
+    private void showLayoutUser(){
+        try {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(Main.class.getResource("view/Main.fxml"));
             AnchorPane mainPane = loader.load();
@@ -67,11 +66,11 @@ public class Main extends Application {
         }
     }
 
-    private void initRootLayoutUser() throws IOException {
-        try{
+    private void initRootLayoutUser(){
+        try {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(Main.class.getResource("view/RootLayoutUser.fxml"));
-            rootLayout = (BorderPane) loader.load();
+            rootLayout = loader.load();
 
             Scene scene = new Scene(rootLayout);
 
@@ -91,14 +90,14 @@ public class Main extends Application {
     }
 
     private void showLayoutAdmin() {
-        try{
+        try {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(Main.class.getResource("view/DataBaseLayout.fxml"));
             AnchorPane mainPane = loader.load();
 
             rootLayout.setCenter(mainPane);
 
-            dataBaseLayoutController = loader.getController();
+            DataBaseLayoutController dataBaseLayoutController = loader.getController();
             dataBaseLayoutController.setMain(this);
         } catch (IOException e) {
             e.printStackTrace();
@@ -106,10 +105,10 @@ public class Main extends Application {
     }
 
     private void initRootLayoutAdmin() {
-        try{
+        try {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(Main.class.getResource("view/RootLayoutAdmin.fxml"));
-            rootLayout = (BorderPane) loader.load();
+            rootLayout = loader.load();
 
             Scene scene = new Scene(rootLayout);
 
@@ -128,7 +127,7 @@ public class Main extends Application {
         }
     }
 
-    public boolean showMaterialAddDialog(){
+    public boolean showMaterialAddDialog() {
         try {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(Main.class.getResource("view/MaterialAddLayout.fxml"));
@@ -152,7 +151,7 @@ public class Main extends Application {
         }
     }
 
-    public boolean showChangePassDialog(){
+    public boolean showChangePassDialog() {
         try {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(Main.class.getResource("view/ChangePasswordLayout.fxml"));
@@ -181,7 +180,7 @@ public class Main extends Application {
         launch(args);
     }
 
-    public MainController getMainController(){
+    public MainController getMainController() {
         return mainController;
     }
 
@@ -189,7 +188,7 @@ public class Main extends Application {
         return primaryStage;
     }
 
-    public void aboutWindow(){
+    public void aboutWindow() {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Mathematics Model ");
         alert.setHeaderText("О программе");
