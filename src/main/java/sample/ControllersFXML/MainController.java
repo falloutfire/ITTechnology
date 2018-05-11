@@ -186,7 +186,7 @@ public class MainController {
 
             consistention = Double.parseDouble(consistencyField.getText());
             viscosity = Double.parseDouble(viscosityField.getText());
-            reduc = Double.parseDouble(temperatureField.getText());
+            reduc = Double.parseDouble(reducField.getText());
             indexMaterial = Double.parseDouble(indexFlowField.getText());
             heatTransfer = Double.parseDouble(heatField.getText());
 

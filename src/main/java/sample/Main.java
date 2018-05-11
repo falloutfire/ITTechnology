@@ -24,7 +24,7 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         this.primaryStage = primaryStage;
-        this.primaryStage.setTitle("Mathematics Model");
+        this.primaryStage.setTitle("Information Systems and Technology");
         primaryStage.setResizable(false);
         primaryStage.sizeToScene();
         showLoginPassLayout();
@@ -190,7 +190,7 @@ public class Main extends Application {
 
     public void aboutWindow() {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Mathematics Model ");
+        alert.setTitle("Information Systems and Technology");
         alert.setHeaderText("О программе");
         alert.setContentText("Авторы: Илья Лихачев, Илья Родионов\nГруппа 455");
 

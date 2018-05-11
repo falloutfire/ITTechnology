@@ -6,27 +6,30 @@ import javafx.scene.control.TextField;
 import sample.Main;
 
 import java.io.IOException;
-import java.nio.charset.Charset;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.List;
+import java.io.InputStream;
 import java.util.Objects;
+import java.util.Scanner;
 
 public class LoginPassLayoutController {
     public TextField loginField;
     public PasswordField passwordField;
     private Main main;
 
-    public void onClickEnter() throws IOException {
+    public void onClickEnter(){
         String login = loginField.getText();
         String pass = passwordField.getText();
-        final String resourceF = getClass().getResource("pass.txt").toExternalForm();
-        List<String> lines = Files.readAllLines(Paths.get(resourceF.substring(6)), Charset.defaultCharset());
-        String password = lines.get(0);
-
+        String result;
+        final InputStream resourceF = this.getClass().getClassLoader().getResourceAsStream("sample/ControllersFXML/pass.txt");
+        try(Scanner s = new Scanner(resourceF).useDelimiter("\\A")) {
+            result = s.hasNext() ? s.next() : "";
+        }
+        System.out.println(result);
+        //List<String> lines = Files.readAllLines(Paths.get(result/*resourceF.substring(10)*/), Charset.defaultCharset());
+        //String password = lines.get(0);
+        //String password = "test";
         if(Objects.equals(login, "Man") && Objects.equals(pass, "test")) {
             main.openLayoutUser();
-        } else if (Objects.equals(login, "Admin") && Objects.equals(pass, password)) {
+        } else if (Objects.equals(login, "Admin") && Objects.equals(pass, result)) {
             main.openLayoutAdmin();
         } else {
             Alert alert = new Alert(Alert.AlertType.ERROR);

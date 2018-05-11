@@ -22,7 +22,7 @@ public class ChangePasswordLayoutController {
         if (newPass.equals(confirm)) {
             try {
                 PrintWriter passWrite = new PrintWriter(pass);
-                passWrite.println(newPass);
+                passWrite.print(newPass);
                 passWrite.close();
             } catch (IOException e) {
                 e.printStackTrace();
