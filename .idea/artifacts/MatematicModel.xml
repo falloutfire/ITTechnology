@@ -1,5 +1,5 @@
 <component name="ArtifactManager">
-  <artifact type="javafx" build-on-make="true" name="MatematicModel">
+  <artifact type="javafx" name="MatematicModel">
     <output-path>$PROJECT_DIR$/out/artifacts/MatematicModel</output-path>
     <properties id="javafx-properties">
       <options>

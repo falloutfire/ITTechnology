@@ -27,8 +27,6 @@ public class MaterialDAO {
             String selectStmtValue = "Select Parameter_value from parameter_value WHERE Material_id = " + materialId;
             ResultSet rsMatValue = DBUtil.dbExecuteQuery(selectStmtValue);
 
-            //Send ResultSet to the getMaterialFromResultSet method and get employee object
-
             //Return materialBase object
             return getMaterialBaseFromResultSet(rsMatValue, materialId, name);
         } catch (SQLException e) {

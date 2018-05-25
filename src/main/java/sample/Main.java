@@ -11,6 +11,10 @@ import javafx.stage.Modality;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import sample.ControllersFXML.*;
+import sample.Objects.Channel;
+import sample.Objects.EmpiricalCoefficients;
+import sample.Objects.Material;
+import sample.Objects.MaterialBase;
 
 import java.io.IOException;
 
@@ -61,6 +65,7 @@ public class Main extends Application {
             rootLayout.setCenter(mainPane);
 
             mainController = loader.getController();
+            mainController.setMain(this);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -172,6 +177,33 @@ public class Main extends Application {
         } catch (IOException e) {
             e.printStackTrace();
             return false;
+        }
+    }
+
+    public void showExperimentDialog(Material material, Channel channel, EmpiricalCoefficients empCoef, String name) {
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(Main.class.getResource("view/ExperimentLayout.fxml"));
+            AnchorPane pane = loader.load();
+
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("Эксперимент");
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(primaryStage);
+            Scene scene = new Scene(pane);
+            dialogStage.setScene(scene);
+
+            ExperimentLayoutController controller = loader.getController();
+            controller.setDialogStage(primaryStage);
+            controller.setChannel(channel);
+            controller.setMaterial(material);
+            controller.setEmpCoef(empCoef);
+            controller.setName(name);
+            dialogStage.setResizable(false);
+            dialogStage.showAndWait();
+        } catch (IOException e) {
+            e.printStackTrace();
+
         }
 
     }

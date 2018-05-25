@@ -176,12 +176,7 @@ public class RootLayoutUserController {
             alert.showAndWait();
 
         } catch (IOException e) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Ошибка");
-            alert.setHeaderText("Невзможно сохранить файл");
-            alert.setContentText("Невзможно сохранить значения в файл:\n" + file.getPath());
-
-            alert.showAndWait();
+            ExperimentLayoutController.getAlertFile(file);
         }
     }
 }

@@ -11,6 +11,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import sample.DAO.MaterialDAO;
+import sample.Main;
 import sample.Objects.*;
 
 import java.sql.SQLException;
@@ -26,7 +27,11 @@ public class MainController {
     public TableView<MaterialBase> dataBaseTable;
     public TableColumn<MaterialBase, String> materialNameColumn;
     public Label materialNameLabel;
-
+    public TableView<ValueAdapter> reportView;
+    public TableColumn<ValueAdapter, Integer> numberColumn;
+    public TableColumn<ValueAdapter, String> lenghtColumn;
+    public TableColumn<ValueAdapter, String> consistColumn;
+    public TableColumn<ValueAdapter, String> temperatureColumn;
     @FXML
     private SplitPane splitPane;
     @FXML
@@ -67,18 +72,10 @@ public class MainController {
     private Label timerLabel;
     @FXML
     private Label performanceLabel;
-
     private NumberAxis yAxisTemp = new NumberAxis();
     private NumberAxis xAxisTemp = new NumberAxis();
     private NumberAxis yAxisCons = new NumberAxis();
     private NumberAxis xAxisCons = new NumberAxis();
-
-    public TableView<ValueAdapter> reportView;
-    public TableColumn<ValueAdapter, Integer> numberColumn;
-    public TableColumn<ValueAdapter, String> lenghtColumn;
-    public TableColumn<ValueAdapter, String> consistColumn;
-    public TableColumn<ValueAdapter, String> temperatureColumn;
-
     private ObservableList<ValueAdapter> values = FXCollections.observableArrayList();
 
     private Channel channel;
@@ -87,6 +84,7 @@ public class MainController {
     private MaterialBase materialBase;
     private double temperature, speed;
     private String perfomance;
+    private Main main;
 
     public MainController() {
     }
@@ -189,8 +187,6 @@ public class MainController {
             reduc = Double.parseDouble(reducField.getText());
             indexMaterial = Double.parseDouble(indexFlowField.getText());
             heatTransfer = Double.parseDouble(heatField.getText());
-
-            System.out.println(density + " " + heatCap + " " + meltingTemperature);
 
             channel = new Channel(width, height, lenght);
             material = new Material(density, heatCap, meltingTemperature);
@@ -357,5 +353,62 @@ public class MainController {
 
     public MaterialBase getMaterialBase() {
         return materialBase;
+    }
+
+    public void setMain(Main main) {
+        this.main = main;
+    }
+
+    public void onClickExperiment(ActionEvent actionEvent) {
+        double step;
+        double width;
+        double height;
+        double lenght;
+        double density;
+        double heatCap;
+        double meltingTemperature;
+        double indexMaterial;
+        double heatTransfer;
+        double consistention;
+        double viscosity;
+        double reduc;
+
+
+        try {
+            DependenceTemperature.getChildren().clear();
+            DependenceViscosity.getChildren().clear();
+            temperature = Double.parseDouble(temperatureField.getText().replace(',', '.'));
+            speed = Double.parseDouble(speedField.getText().replace(',', '.'));
+            step = Double.parseDouble(stepField.getText().replace(',', '.'));
+
+            width = Double.parseDouble(widthField.getText().replace(',', '.'));
+            height = Double.parseDouble(heightField.getText().replace(',', '.'));
+            lenght = Double.parseDouble(lenghtField.getText().replace(',', '.'));
+
+            density = Double.parseDouble(densityField.getText().replace(',', '.'));
+            heatCap = Double.parseDouble(heatCapField.getText().replace(',', '.'));
+            meltingTemperature = Double.parseDouble(meltingField.getText().replace(',', '.'));
+
+            consistention = Double.parseDouble(consistencyField.getText());
+            viscosity = Double.parseDouble(viscosityField.getText());
+            reduc = Double.parseDouble(reducField.getText());
+            indexMaterial = Double.parseDouble(indexFlowField.getText());
+            heatTransfer = Double.parseDouble(heatField.getText());
+
+            channel = new Channel(width, height, lenght);
+            material = new Material(density, heatCap, meltingTemperature);
+            empCoef = new EmpiricalCoefficients(consistention, viscosity, reduc,
+                    indexMaterial, heatTransfer);
+
+            if (consistention > 0 && viscosity > 0 && reduc > 0 && indexMaterial > 0 && heatTransfer > 0 &&
+                    step > 0 && step <= channel.getLenght() && speed > 0 && temperature > -273 && width > 0 && height > 0 &&
+                    lenght > 0 && density > 0 && heatCap > 0 && meltingTemperature > 0) {
+                main.showExperimentDialog(material, channel, empCoef, materialNameLabel.getText());
+            } else {
+                getAlert();
+            }
+        } catch (NumberFormatException e) {
+            getAlert();
+        }
     }
 }

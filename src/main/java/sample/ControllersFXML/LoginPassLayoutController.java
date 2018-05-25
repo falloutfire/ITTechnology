@@ -34,7 +34,7 @@ public class LoginPassLayoutController {
         } else {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Ошибка входа");
-            alert.setHeaderText("Неверныое имя пользователя/пароль");
+            alert.setHeaderText("Неверное имя пользователя/пароль");
             alert.setContentText("Проверьте введеные вами данные.\n");
             alert.showAndWait();
         }
