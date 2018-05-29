@@ -5,6 +5,7 @@ import com.sun.rowset.CachedRowSetImpl;
 import java.sql.*;
 
 public class DBUtil {
+    private String ip = "192.168.40.253";
     private static final String url = "jdbc:mysql://localhost:3306/isat?useSSL=false";
     private static final String user = "root";
     private static final String password = "polosin";

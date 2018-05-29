@@ -20,11 +20,15 @@
                   <TextField fx:id="tempToField" layoutX="93.0" layoutY="44.0" prefHeight="25.0" prefWidth="44.0" text="150" />
                   <TextField fx:id="speedToField" layoutX="93.0" layoutY="98.0" prefHeight="25.0" prefWidth="44.0" text="2" />
                   <TextField fx:id="speedFromField" layoutX="14.0" layoutY="98.0" prefHeight="25.0" prefWidth="44.0" text="1" />
+                  <TextField fx:id="deltaTempField" layoutX="93.0" layoutY="132.0" prefHeight="25.0" prefWidth="44.0" text="1" />
+                  <TextField fx:id="deltaSpeedField" layoutX="93.0" layoutY="167.0" prefHeight="25.0" prefWidth="44.0" text="0.5" />
                   <Label layoutX="61.0" layoutY="48.0" text="&lt; T &lt;" />
                   <Label layoutX="60.0" layoutY="102.0" text="&lt; V &lt;" />
-                  <Label layoutX="14.0" layoutY="153.0" text="Выбранный материал:" />
-                  <Label fx:id="materialNameLabel" layoutX="14.0" layoutY="177.0" text="_" />
-                  <Label fx:id="timeLabel" layoutX="16.0" layoutY="201.0" prefHeight="17.0" prefWidth="175.0" text="Время выполнения:" />
+                  <Label layoutX="15.0" layoutY="220.0" text="Выбранный материал:" />
+                  <Label fx:id="materialNameLabel" layoutX="15.0" layoutY="244.0" text="_" />
+                  <Label fx:id="timeLabel" layoutX="17.0" layoutY="268.0" prefHeight="17.0" prefWidth="175.0" text="Время выполнения:" />
+                  <Label layoutX="15.0" layoutY="136.0" text="Delta T" />
+                  <Label layoutX="14.0" layoutY="171.0" text="Delta Speed" />
                </children>
             </AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="512.0" prefWidth="525.0">

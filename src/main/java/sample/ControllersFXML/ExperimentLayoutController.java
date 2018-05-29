@@ -45,6 +45,9 @@ public class ExperimentLayoutController {
     public AnchorPane performancePane;
     public TableView perfomanceView;
     public Label timeLabel;
+    public TextField deltaTempField;
+    public TextField deltaSpeedField;
+    NumberFormat formaterTemp = new DecimalFormat("#0.0");
     NumberFormat formater = new DecimalFormat("#0");
     private Stage dialogStage;
     private boolean okClicked = false;
@@ -53,9 +56,14 @@ public class ExperimentLayoutController {
     private Channel channel;
     private String nameMaterial;
     private List<String> columnsTemperature;
-    private ObservableList<String> rowTemp1, rowTemp2, rowTemp3, rowTemp4, rowTemp5;
-    private ObservableList<String> rowVisc1, rowVisc2, rowVisc3, rowVisc4, rowVisc5;
-    private ObservableList<String> rowPerfomance, rowPerfomance1, rowPerfomance2, rowPerfomance3, rowPerfomance4;
+    //для таблиц
+    private ArrayList<ObservableList<String>> rowTemp;
+    private ArrayList<ObservableList<String>> rowVisc;
+    private ArrayList<ObservableList<String>> rowPerf;
+    //для графиков
+    private ArrayList<ObservableList<String>> grafTemp;
+    private ArrayList<ObservableList<String>> grafVisc;
+    private ArrayList<ObservableList<String>> grafPerf;
     private ObservableList<String> columnsPerf;
 
     public ExperimentLayoutController() {
@@ -93,6 +101,9 @@ public class ExperimentLayoutController {
         tempView.getColumns().clear();
         perfomanceView.getColumns().clear();
         viscosityView.getColumns().clear();
+        tempView.getItems().clear();
+        perfomanceView.getItems().clear();
+        viscosityView.getItems().clear();
     }
 
     public void onClickCalculate(ActionEvent actionEvent) {
@@ -100,50 +111,51 @@ public class ExperimentLayoutController {
         clearing();
 
         if (Float.parseFloat(tempFromField.getText()) < Float.parseFloat(tempToField.getText()) && Float.parseFloat(speedFromField.getText()) < Float.parseFloat(speedToField.getText())) {
-            columnsTemperature = new ArrayList<String>(getDiapazon(Float.parseFloat(tempFromField.getText()), Float.parseFloat(tempToField.getText())));
-            List<String> columnsSpeed = new ArrayList<String>(getDiapazon(Float.parseFloat(speedFromField.getText()), Float.parseFloat(speedToField.getText())));
+
+            columnsTemperature = new ArrayList<String>(getDiapazon(Float.parseFloat(tempFromField.getText()), Float.parseFloat(tempToField.getText()), Float.parseFloat(deltaTempField.getText())));
+            List<String> columnsSpeed = new ArrayList<String>(getDiapazon(Float.parseFloat(speedFromField.getText()), Float.parseFloat(speedToField.getText()), Float.parseFloat(deltaSpeedField.getText())));
             columnsPerf = FXCollections.observableArrayList();
             columnsPerf.add("Скорость \nкрышки, м/с");
             columnsPerf.add("Производительность, Па*с");
+
+            ArrayList<String> tempsGraf = new ArrayList<String>(getDiapazon(Float.parseFloat(tempFromField.getText()), Float.parseFloat(tempToField.getText())));
+            ArrayList<String> speedGraf = new ArrayList<String>(getDiapazon(Float.parseFloat(speedFromField.getText()), Float.parseFloat(speedToField.getText())));
+
             long startTime = System.currentTimeMillis();
+
             setCellFactoryTable(columnsTemperature, tempView.getColumns());
             setCellFactoryTable(columnsTemperature, viscosityView.getColumns());
             setCellFactoryTable(columnsPerf, perfomanceView.getColumns());
 
-            rowTemp1 = FXCollections.observableArrayList();
-            rowTemp2 = FXCollections.observableArrayList();
-            rowTemp3 = FXCollections.observableArrayList();
-            rowTemp4 = FXCollections.observableArrayList();
-            rowTemp5 = FXCollections.observableArrayList();
-            rowVisc1 = FXCollections.observableArrayList();
-            rowVisc2 = FXCollections.observableArrayList();
-            rowVisc3 = FXCollections.observableArrayList();
-            rowVisc4 = FXCollections.observableArrayList();
-            rowVisc5 = FXCollections.observableArrayList();
-            rowPerfomance = FXCollections.observableArrayList();
-            rowPerfomance1 = FXCollections.observableArrayList();
-            rowPerfomance2 = FXCollections.observableArrayList();
-            rowPerfomance3 = FXCollections.observableArrayList();
-            rowPerfomance4 = FXCollections.observableArrayList();
+            rowTemp = new ArrayList<>();
+            rowVisc = new ArrayList<>();
+            rowPerf = new ArrayList<>();
 
-            calc(Float.parseFloat(columnsSpeed.get(1)), columnsTemperature, rowTemp1, rowVisc1, rowPerfomance);
-            calc(Float.parseFloat(columnsSpeed.get(2)), columnsTemperature, rowTemp2, rowVisc2, rowPerfomance1);
-            calc(Float.parseFloat(columnsSpeed.get(3)), columnsTemperature, rowTemp3, rowVisc3, rowPerfomance2);
-            calc(Float.parseFloat(columnsSpeed.get(4)), columnsTemperature, rowTemp4, rowVisc4, rowPerfomance3);
-            calc(Float.parseFloat(columnsSpeed.get(5)), columnsTemperature, rowTemp5, rowVisc5, rowPerfomance4);
-            tempView.getItems().addAll(rowTemp1, rowTemp2, rowTemp3, rowTemp4, rowTemp5);
-            viscosityView.getItems().addAll(rowVisc1, rowVisc2, rowVisc3, rowVisc4, rowVisc5);
-            perfomanceView.getItems().addAll(rowPerfomance, rowPerfomance1, rowPerfomance2, rowPerfomance3, rowPerfomance4);
+            grafTemp = new ArrayList<>();
+            grafVisc = new ArrayList<>();
+            grafPerf = new ArrayList<>();
 
-            NumberAxis yAxisTemp = new NumberAxis(Float.parseFloat(rowTemp1.get(1)) - 4, Float.parseFloat(rowTemp5.get(5)) + 4, 5);
-            if (Float.parseFloat(rowTemp5.get(5)) < Float.parseFloat(rowTemp1.get(5))) {
-                yAxisTemp.setUpperBound(Float.parseFloat(rowTemp1.get(5)) + 4);
+            for(int i = 1; i < columnsSpeed.size(); i++){
+                calc(Float.parseFloat(columnsSpeed.get(i)), columnsTemperature, rowTemp, rowVisc, rowPerf);
             }
-            NumberAxis xAxisTemp = new NumberAxis(Float.parseFloat(columnsTemperature.get(1)), Float.parseFloat(columnsTemperature.get(5)) + 5, 5);
+
+            tempView.getItems().addAll(rowTemp);
+            viscosityView.getItems().addAll(rowVisc);
+            perfomanceView.getItems().addAll(rowPerf);
+
+            for (int i = 1; i < speedGraf.size(); i++) {
+                calc(Float.parseFloat(speedGraf.get(i)), tempsGraf, grafTemp, grafVisc, grafPerf);
+            }
+
+            NumberAxis yAxisTemp = new NumberAxis(Float.parseFloat(grafTemp.get(0).get(1)) - 4, Float.parseFloat(grafTemp.get(0).get(4)) + 4, 5);
+            if (Float.parseFloat(grafTemp.get(0).get(4)) < Float.parseFloat(grafTemp.get(4).get(4))) {
+                yAxisTemp.setUpperBound(Float.parseFloat(grafTemp.get(4).get(4)) + 4);
+            }
+            NumberAxis xAxisTemp = new NumberAxis(Float.parseFloat(tempsGraf.get(1)), Float.parseFloat(tempsGraf.get(5)) + 5, 5);
             NumberAxis yAxisVisc = new NumberAxis();
-            NumberAxis xAxisVisc = new NumberAxis(Float.parseFloat(columnsTemperature.get(1)), Float.parseFloat(columnsTemperature.get(5)) + 5, 5);
+            NumberAxis xAxisVisc = new NumberAxis(Float.parseFloat(tempsGraf.get(1)), Float.parseFloat(tempsGraf.get(5)) + 5, 5);
             NumberAxis yAxisPerf = new NumberAxis();
-            NumberAxis xAxisPerf = new NumberAxis(Float.parseFloat(rowPerfomance.get(0)), Float.parseFloat(rowPerfomance4.get(0)), 1);
+            NumberAxis xAxisPerf = new NumberAxis(Float.parseFloat(grafPerf.get(0).get(0)), Float.parseFloat(grafPerf.get(4).get(0)), 1);
 
             yAxisTemp.setLabel("Температура продукта,°С");
             xAxisTemp.setLabel("Температура крышки,°С");
@@ -156,34 +168,23 @@ public class ExperimentLayoutController {
             LineChart<Number, Number> viscChart = new LineChart<>(xAxisVisc, yAxisVisc);
             LineChart<Number, Number> perfChart = new LineChart<>(xAxisPerf, yAxisPerf);
 
-            XYChart.Series tempSeries1 = getSeries(columnsTemperature, rowTemp1);
-            XYChart.Series tempSeries2 = getSeries(columnsTemperature, rowTemp2);
-            XYChart.Series tempSeries3 = getSeries(columnsTemperature, rowTemp3);
-            XYChart.Series tempSeries4 = getSeries(columnsTemperature, rowTemp4);
-            XYChart.Series tempSeries5 = getSeries(columnsTemperature, rowTemp5);
-            tempSeries1.setName("Температура материала от температуры крышки при скорости крышки " + rowTemp1.get(0) + "м/с");
-            tempSeries2.setName("Температура материала от температуры крышки при скорости крышки " + rowTemp2.get(0) + "м/с");
-            tempSeries3.setName("Температура материала от температуры крышки при скорости крышки " + rowTemp3.get(0) + "м/с");
-            tempSeries4.setName("Температура материала от температуры крышки при скорости крышки " + rowTemp4.get(0) + "м/с");
-            tempSeries5.setName("Температура материала от температуры крышки при скорости крышки " + rowTemp5.get(0) + "м/с");
-            XYChart.Series viscSeries1 = getSeries(columnsTemperature, rowVisc1);
-            XYChart.Series viscSeries2 = getSeries(columnsTemperature, rowVisc2);
-            XYChart.Series viscSeries3 = getSeries(columnsTemperature, rowVisc3);
-            XYChart.Series viscSeries4 = getSeries(columnsTemperature, rowVisc4);
-            XYChart.Series viscSeries5 = getSeries(columnsTemperature, rowVisc5);
-            viscSeries1.setName("Вязкость материала от температуры крышки при скорости крышки " + rowVisc1.get(0) + "м/с");
-            viscSeries2.setName("Вязкость материала от температуры крышки при скорости крышки " + rowVisc2.get(0) + "м/с");
-            viscSeries3.setName("Вязкость материала от температуры крышки при скорости крышки " + rowVisc3.get(0) + "м/с");
-            viscSeries4.setName("Вязкость материала от температуры крышки при скорости крышки " + rowVisc4.get(0) + "м/с");
-            viscSeries5.setName("Вязкость материала от температуры крышки при скорости крышки " + rowVisc5.get(0) + "м/с");
-            XYChart.Series perfSeries = getSeries(rowPerfomance, rowPerfomance1, rowPerfomance2, rowPerfomance3, rowPerfomance4);
+            for(int i = 0; i < 5; i++){
+                XYChart.Series tempSeries = getSeries(tempsGraf, grafTemp.get(i));
+                XYChart.Series viscSeries = getSeries(tempsGraf, grafVisc.get(i));
+                viscSeries.setName("Вязкость материала от температуры крышки при скорости крышки " + grafVisc.get(i).get(0) + "м/с");
+                tempSeries.setName("Температура материала от температуры крышки при скорости крышки " + grafTemp.get(i).get(0) + "м/с");
+                tempChart.getData().add(tempSeries);
+                viscChart.getData().add(viscSeries);
+            }
 
-            tempChart.getData().addAll(tempSeries1, tempSeries2, tempSeries3, tempSeries4, tempSeries5);
-            viscChart.getData().addAll(viscSeries1, viscSeries2, viscSeries3, viscSeries4, viscSeries5);
+            XYChart.Series perfSeries = getSeries(grafPerf);
             perfChart.getData().add(perfSeries);
+            perfChart.setLegendVisible(false);
+
             temperaturePane.getChildren().add(tempChart);
             viscosityPane.getChildren().add(viscChart);
             performancePane.getChildren().add(perfChart);
+
             long timeSpent = System.currentTimeMillis() - startTime;
             timeLabel.setText("Время выполнения: " + String.valueOf(timeSpent) + " мс");
         } else {
@@ -203,13 +204,11 @@ public class ExperimentLayoutController {
         return series;
     }
 
-    private XYChart.Series getSeries(ObservableList<String> row1, ObservableList<String> row2, ObservableList<String> row3, ObservableList<String> row4, ObservableList<String> row5) {
+    private XYChart.Series getSeries(ArrayList<ObservableList<String>> row) {
         XYChart.Series series = new XYChart.Series();
-        series.getData().add(new XYChart.Data<>(Float.parseFloat(row1.get(0)), Float.parseFloat(row1.get(1))));
-        series.getData().add(new XYChart.Data<>(Float.parseFloat(row2.get(0)), Float.parseFloat(row2.get(1))));
-        series.getData().add(new XYChart.Data<>(Float.parseFloat(row3.get(0)), Float.parseFloat(row3.get(1))));
-        series.getData().add(new XYChart.Data<>(Float.parseFloat(row4.get(0)), Float.parseFloat(row4.get(1))));
-        series.getData().add(new XYChart.Data<>(Float.parseFloat(row5.get(0)), Float.parseFloat(row5.get(1))));
+        for(int i = 0; i < row.size(); i++){
+            series.getData().add(new XYChart.Data<>(Float.parseFloat(row.get(i).get(0)), Float.parseFloat(row.get(i).get(0))));
+        }
         return series;
     }
 
@@ -226,15 +225,18 @@ public class ExperimentLayoutController {
         }
     }
 
-    private void calc(float speed, List<String> tempList, ObservableList<String> rowTemp, ObservableList<String> rowVis, ObservableList<String> rowPerf) {
-        rowTemp.add(String.valueOf(speed));
-        rowVis.add(String.valueOf(speed));
+    private void calc(float speed, List<String> tempList, ArrayList<ObservableList<String>> rowTemp, ArrayList<ObservableList<String>> rowVisc, ArrayList<ObservableList<String>> rowPerf) {
+        ObservableList<String> temp = FXCollections.observableArrayList();
+        ObservableList<String> vis = FXCollections.observableArrayList();
+        ObservableList<String> perf = FXCollections.observableArrayList();
+        temp.add(String.valueOf(speed));
+        vis.add(String.valueOf(speed));
         double Fch = 0.125 * Math.pow((channel.getHeight() / channel.getWidth()), 2) - 0.625 * (channel.getHeight() / channel.getWidth()) + 1;
         double Q = (channel.getWidth() * channel.getHeight() * speed) / 2 * Fch;
         double G = material.getDensity() * Q * 3600;// кг час
-        rowPerf.add(String.valueOf(speed));
-        rowPerf.add(formater.format(G));
-        for (int i = 1; i < 6; i++) {
+        perf.add(String.valueOf(speed));
+        perf.add(formater.format(G));
+        for (int i = 1; i < tempList.size(); i++) {
             double temperature = Double.parseDouble(tempList.get(i));
 
             double gamma = speed / channel.getHeight();
@@ -243,15 +245,26 @@ public class ExperimentLayoutController {
             double ae = ((empCoef.getViscosity() * qGamma + channel.getWidth() * empCoef.getHeatTransfer()) / (empCoef.getViscosity() * qAlpha)) * (1 - Math.exp(-(channel.getLenght() * empCoef.getViscosity() * qAlpha) / (material.getDensity() * material.getHeat() * Q))) + Math.exp(empCoef.getViscosity() * (material.getMeltingTemperature() - empCoef.getAlignmentTemperature() - ((channel.getLenght() * qAlpha) / (material.getDensity() * material.getHeat() * Q))));
 
             double T = empCoef.getAlignmentTemperature() + 1 / empCoef.getViscosity() * Math.log(ae); //Температура для зависимости
-            rowTemp.add(formater.format(T));
-
+            temp.add(formaterTemp.format(T).replace(",", "."));
             double consistention = empCoef.getConsistention() * Math.exp(-empCoef.getViscosity() * (T - empCoef.getAlignmentTemperature()));
             double viscosityMaterial = consistention * Math.pow(gamma, empCoef.getIndexMaterial() - 1); //взякость для зависимости
-            rowVis.add(formater.format(viscosityMaterial));
+            vis.add(formater.format(viscosityMaterial));
         }
+        rowTemp.add(temp);
+        rowVisc.add(vis);
+        rowPerf.add(perf);
     }
 
-    private ArrayList<String> getDiapazon(float min, float max) {
+    private ArrayList<String> getDiapazon(float min, float max, float delta) {
+        ArrayList<String> diapazon = new ArrayList<>();
+        diapazon.add("Температура,°С");
+        for (float i = min; i <= max; i += delta) {
+            diapazon.add(String.valueOf(i));
+        }
+        return diapazon;
+    }
+
+    private ArrayList<String> getDiapazon(float min, float max){
         ArrayList<String> diapazon = new ArrayList<>();
         diapazon.add("Температура,°С");
         float add = min;
@@ -261,6 +274,7 @@ public class ExperimentLayoutController {
             diapazon.add(String.valueOf(add));
         }
         return diapazon;
+
     }
 
     public void setMaterial(Material material) {
@@ -289,7 +303,7 @@ public class ExperimentLayoutController {
     }
 
     public void onClickExportExcel(ActionEvent actionEvent) {
-        if(rowTemp1 != null){
+        if(rowTemp != null){
             FileChooser fileChooser = new FileChooser();
             FileChooser.ExtensionFilter extensionFilter = new FileChooser.ExtensionFilter(
                     "XLS files (*.xls)", "*.xls");
@@ -316,155 +330,115 @@ public class ExperimentLayoutController {
     private void exportDataToFile(File file) {
         try {
             Workbook book = new HSSFWorkbook();
-            Sheet sheet = book.createSheet("Расчет");
+            Sheet sheetInfo = book.createSheet("Информация");
+            Sheet sheetTemp = book.createSheet("Температура");
+            Sheet sheetVisc = book.createSheet("Вязкость");
+            Sheet sheetPerf = book.createSheet("Производительность");
 
-            Row row = sheet.createRow(0);
-            Cell table1Label = row.createCell(0);
-            table1Label.setCellValue("Температура материала от температуры крышки при заданной скорости крышки");
-            Cell name = row.createCell(7);
+
+            Row row = sheetInfo.createRow(0);
+            //Cell table1Label = row.createCell(0);
+            //table1Label.setCellValue("Температура материала от температуры крышки при заданной скорости крышки");
+            Cell name = row.createCell(1);
             name.setCellValue(nameMaterial);
 
             //channel
-            Cell width = row.createCell(8);
-            Cell height = row.createCell(9);
+            Cell lenght = row.createCell(2);
+            Cell width = row.createCell(3);
+            Cell height = row.createCell(4);
+            lenght.setCellValue("Длина, м");
             width.setCellValue("Ширина, м");
             height.setCellValue("Глубина, м");
 
             //material
-            Cell density = row.createCell(10);
-            Cell heat = row.createCell(11);
-            Cell melting = row.createCell(12);
+            Cell density = row.createCell(5);
+            Cell heat = row.createCell(6);
+            Cell melting = row.createCell(7);
             density.setCellValue("Плотность, кг/м³");
             heat.setCellValue("Удельная теплоемкость, Дж/(°C*кг)");
             melting.setCellValue("Температура плавления, °C");
 
             //Emp coef
-            Cell alignTemp = row.createCell(13);
-            Cell consistention = row.createCell(14);
-            Cell heatTransfer = row.createCell(15);
-            Cell indexMaterial = row.createCell(16);
-            Cell viscosity = row.createCell(17);
+            Cell alignTemp = row.createCell(8);
+            Cell consistention = row.createCell(9);
+            Cell heatTransfer = row.createCell(10);
+            Cell indexMaterial = row.createCell(11);
+            Cell viscosity = row.createCell(12);
             alignTemp.setCellValue("Коэффициент консистенции материала при температуре приведения, Па·с^n");
             consistention.setCellValue("Температурный коэффициент вязкости материала, 1/°С");
             indexMaterial.setCellValue("Индекс течения материала");
             viscosity.setCellValue("Коэффициент теплоотдачи от крышки канала к материалу, Вт/(м^2·°С)");
             heatTransfer.setCellValue("Температура приведения, °С");
 
-            for (int i = 1; i < 7 ; i++) {
-                Row rows = sheet.createRow(i);
-                if (i == 1) {
-                    //temp
-                    Cell speedLabel = rows.createCell(0);
-                    speedLabel.setCellValue("Скорость крышки,м/с");
-                    for(int a = columnsTemperature.size()-1; a > 0; a--){
-                        Cell tempLabel = rows.createCell(a);
-                        tempLabel.setCellValue(columnsTemperature.get(a));
-                    }
-                    Cell tempL = rows.createCell(6);
-                    tempL.setCellValue("Температура продукта, °C");
-                    //channel
-                    Cell widthVal = rows.createCell(8);
-                    Cell heightVal = rows.createCell(9);
-                    widthVal.setCellValue(channel.getWidth());
-                    heightVal.setCellValue(channel.getHeight());
+            Row rows = sheetInfo.createRow(1);
+            for(int i = 0; i < 13; i++){
+                //channel
+                Cell lenghtVal = rows.createCell(2);
+                Cell widthVal = rows.createCell(3);
+                Cell heightVal = rows.createCell(4);
+                lenghtVal.setCellValue(channel.getLenght());
+                widthVal.setCellValue(channel.getWidth());
+                heightVal.setCellValue(channel.getHeight());
 
-                    //material
-                    Cell densityVal = rows.createCell(10);
-                    Cell heatVal = rows.createCell(11);
-                    Cell meltingVal = rows.createCell(12);
-                    densityVal.setCellValue(material.getDensity());
-                    heatVal.setCellValue(material.getHeat());
-                    meltingVal.setCellValue(material.getMeltingTemperature());
+                //material
+                Cell densityVal = rows.createCell(5);
+                Cell heatVal = rows.createCell(6);
+                Cell meltingVal = rows.createCell(7);
+                densityVal.setCellValue(material.getDensity());
+                heatVal.setCellValue(material.getHeat());
+                meltingVal.setCellValue(material.getMeltingTemperature());
 
-                    //Emp coef
-                    Cell alignTempVal = rows.createCell(13);
-                    Cell consistentionVal = rows.createCell(14);
-                    Cell heatTransferVal = rows.createCell(15);
-                    Cell indexMaterialVal = rows.createCell(16);
-                    Cell viscosityVal = rows.createCell(17);
-                    alignTempVal.setCellValue(empCoef.getAlignmentTemperature());
-                    consistentionVal.setCellValue(empCoef.getConsistention());
-                    indexMaterialVal.setCellValue(empCoef.getIndexMaterial());
-                    viscosityVal.setCellValue(empCoef.getViscosity());
-                    heatTransferVal.setCellValue(empCoef.getHeatTransfer());
-                }
+                //Emp coef
+                Cell alignTempVal = rows.createCell(8);
+                Cell consistentionVal = rows.createCell(9);
+                Cell heatTransferVal = rows.createCell(10);
+                Cell indexMaterialVal = rows.createCell(11);
+                Cell viscosityVal = rows.createCell(12);
+                alignTempVal.setCellValue(empCoef.getAlignmentTemperature());
+                consistentionVal.setCellValue(empCoef.getConsistention());
+                indexMaterialVal.setCellValue(empCoef.getIndexMaterial());
+                viscosityVal.setCellValue(empCoef.getViscosity());
+                heatTransferVal.setCellValue(empCoef.getHeatTransfer());
+            }
 
-                if (i == 2) {
-                    creatorCell(rows, rowTemp1);
-                }
-                if (i == 3) {
-                    creatorCell(rows, rowTemp2);
-                }
-                if (i == 4) {
-                    creatorCell(rows, rowTemp3);
-                }
-                if (i == 5) {
-                    creatorCell(rows, rowTemp4);
-                }
-                if (i == 6) {
-                    creatorCell(rows, rowTemp5);
+            for (int i = 0; i < rowTemp.size()+2; i++) {
+                Row rowsTemp = sheetTemp.createRow(i);
+                if(i == 0){
+                    Cell table1Label = rowsTemp.createCell(0);
+                    table1Label.setCellValue("Температура материала от температуры крышки при заданной скорости крышки");
+                } else {
+                    creatorTables(i, rowsTemp);
                 }
             }
 
-            Row rowLabel1 = sheet.createRow(8);
-            Cell cellViscLabel = rowLabel1.createCell(0);
-            cellViscLabel.setCellValue("Вязкость материала от температуры крышки при заданной скорости крышки");
-            for(int i = 9; i < 15; i++){
-                Row rows = sheet.createRow(i);
-                if(i == 9){
-                    Cell speedLabel = rows.createCell(0);
-                    speedLabel.setCellValue("Скорость крышки,м/с");
-                    for(int a = columnsTemperature.size()-1; a > 0; a--){
-                        Cell tempLabel = rows.createCell(a);
-                        tempLabel.setCellValue(columnsTemperature.get(a));
-                    }
-                    Cell tempL = rows.createCell(6);
-                    tempL.setCellValue("Температура продукта, °C");
-                }
-                if(i == 10){
-                    creatorCell(rows, rowVisc1);
-                }
-                if(i == 11){
-                    creatorCell(rows, rowVisc2);
-                }
-                if(i == 12){
-                    creatorCell(rows, rowVisc3);
-                }
-                if(i == 13){
-                    creatorCell(rows, rowVisc4);
-                }
-                if(i == 14){
-                    creatorCell(rows, rowVisc5);
+            for (int i = 0; i < rowVisc.size()+2; i++) {
+                Row rowsVisc = sheetVisc.createRow(i);
+                if(i == 0){
+                    Cell table1Label = rowsVisc.createCell(0);
+                    table1Label.setCellValue("Вязкость материала от температуры крышки при заданной скорости крышки");
+                } else {
+                    creatorTables(i, rowsVisc);
                 }
             }
 
-            for(int i = 17; i < 23; i++){
-                Row rows = sheet.createRow(i);
-                if(i == 17){
+
+            for(int i = 0; i < rowPerf.size()+1; i++){
+                Row rowsPerf = sheetPerf.createRow(i);
+                if(i == 0){
                     for(int a = 0; a < columnsPerf.size(); a++){
-                        Cell cell = rows.createCell(a);
+                        Cell cell = rowsPerf.createCell(a);
                         cell.setCellValue(columnsPerf.get(a));
                     }
-                }
-                if(i == 18){
-                    creatorCell(rows, rowPerfomance);
-                }
-                if(i == 19){
-                    creatorCell(rows, rowPerfomance1);
-                }
-                if(i == 20){
-                    creatorCell(rows, rowPerfomance2);
-                }
-                if(i == 21){
-                    creatorCell(rows, rowPerfomance3);
-                }
-                if(i == 22){
-                    creatorCell(rows, rowPerfomance4);
+                } else {
+                    creatorCell(rowsPerf, rowPerf.get(i-1));
                 }
             }
 
             // Записываем всё в файл
-            sheet.autoSizeColumn(1);
+            sheetInfo.autoSizeColumn(1);
+            sheetPerf.autoSizeColumn(1);
+            sheetTemp.autoSizeColumn(1);
+            sheetVisc.autoSizeColumn(1);
             book.write(new FileOutputStream(file));
             book.close();
 
@@ -477,6 +451,21 @@ public class ExperimentLayoutController {
 
         } catch (IOException e) {
             getAlertFile(file);
+        }
+    }
+
+    private void creatorTables(int i, Row rowsVisc) {
+        if (i == 1) {
+            Cell speedLabel = rowsVisc.createCell(0);
+            speedLabel.setCellValue("Скорость крышки,м/с");
+            for(int a = columnsTemperature.size()-1; a > 0; a--){
+                Cell tempLabel = rowsVisc.createCell(a);
+                tempLabel.setCellValue(columnsTemperature.get(a));
+            }
+            Cell tempL = rowsVisc.createCell(columnsTemperature.size());
+            tempL.setCellValue("Температура продукта, °C");
+        } else {
+            creatorCell(rowsVisc, rowTemp.get(i-2));
         }
     }
 
